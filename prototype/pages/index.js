@@ -113,13 +113,14 @@ export default function Home() {
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
       </Head>
 
+      <CssBaseline/>
+
       <>
-        <CssBaseline/>
         <AppBar position="relative">
           <Toolbar>
             <CameraIcon className={classes.icon}/>
             <Typography variant="h6" color="inherit" noWrap>
-              Album layout
+              西卡神教福音
             </Typography>
           </Toolbar>
         </AppBar>
