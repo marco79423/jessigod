@@ -8,8 +8,16 @@
     "start": "next start"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/icons": "^4.11.2",
+    "axios": "^0.21.0",
+    "classnames": "^2.2.6",
     "next": "10.0.3",
+    "primeicons": "^4.1.0",
+    "primereact": "^5.0.2",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "react-router-dom": "^5.2.0",
+    "react-transition-group": "^4.4.1"
   }
 }
