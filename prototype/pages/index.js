@@ -108,7 +108,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Create Next App</title>
+        <title>西卡神教福音</title>
         <link rel="icon" href="/favicon.ico"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
@@ -134,7 +134,6 @@ export default function Home() {
               </Typography>
               <div style={{display: 'flex'}}>
                 <TextField
-                  id="standard-multiline-static"
                   placeholder={'誰'}
                   style={{flex: 1}}
                 />
@@ -142,7 +141,6 @@ export default function Home() {
                   說
                 </Typography>
                 <TextField
-                  id="standard-multiline-static"
                   multiline
                   placeholder={'說了什麼？'}
                   style={{flex: 1}}
@@ -153,12 +151,7 @@ export default function Home() {
                 <Grid container spacing={2} justify="center">
                   <Grid item>
                     <Button variant="contained" color="primary">
-                      Main call to action
-                    </Button>
-                  </Grid>
-                  <Grid item>
-                    <Button variant="outlined" color="primary">
-                      Secondary action
+                      送出給大家知道
                     </Button>
                   </Grid>
                 </Grid>
