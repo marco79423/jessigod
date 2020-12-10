@@ -15,7 +15,7 @@ import Container from '@material-ui/core/Container'
 import Link from '@material-ui/core/Link'
 
 import Head from 'next/head'
-import {TextField} from '@material-ui/core'
+import {Tab, Tabs, TextField} from '@material-ui/core'
 
 
 function Copyright() {
@@ -63,6 +63,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+function SimpleCard() {
+  const classes = useStyles();
+  const bull = <span className={classes.bullet}>•</span>;
+
+  return (
+    <Card>
+      <CardMedia
+        component="img"
+        height="140"
+        image="/images/logo.jpg"
+        title="Contemplative Reptile"
+      />
+      <CardContent>
+        <Typography variant="h5" component="h2">
+          你聽過神嗎？
+        </Typography>
+        <Typography>
+          西卡神是博愛的，祂允許所有神、智者、甚至人渣都有平等說話的權利。
+        </Typography>
+        <Typography>
+          西卡神會紀錄每個人說的話，並將這些話語平等的傳遞給每一個教徒。
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">想知道更多</Button>
+      </CardActions>
+    </Card>
+  )
+}
 
 export default function Home() {
   const classes = useStyles()
@@ -129,6 +158,7 @@ export default function Home() {
           {/* Hero unit */}
           <div className={classes.heroContent}>
             <Container maxWidth="sm">
+              <SimpleCard/>
               <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
                 你剛剛聽見－－
               </Typography>
@@ -160,6 +190,16 @@ export default function Home() {
           </div>
           <Container className={classes.cardGrid} maxWidth="md">
             {/* End hero unit */}
+            <Tabs
+              value={0}
+              indicatorColor="primary"
+              textColor="primary"
+              aria-label="disabled tabs example"
+            >
+              <Tab label="全部"/>
+              <Tab label="我聽見的"/>
+              <Tab label="說明"/>
+            </Tabs>
             <Grid container spacing={4}>
               {gospels.map((gospel, i) => (
                 <Grid item key={i} xs={12} sm={6} md={4}>
