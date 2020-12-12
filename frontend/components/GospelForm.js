@@ -2,16 +2,14 @@ import {makeStyles} from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: 'purple',
+    background: 'pink',
   },
 }))
 
-export default function BrowseSection() {
+export default function GospelForm() {
   const classes = useStyles()
 
   return (
-    <section className={classes.root}>
-      BrowseSection
-    </section>
+    <div className={classes.root}>GospelForm</div>
   )
 }
