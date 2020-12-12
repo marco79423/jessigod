@@ -1,5 +1,7 @@
-import Button from '@material-ui/core/Button'
 import AppBar from '../components/AppBar'
+import MainSection from '../components/MainSection'
+import BrowseSection from '../components/BrowseSection'
+
 
 export default function Index() {
   return (
@@ -8,7 +10,8 @@ export default function Index() {
         <AppBar/>
       </header>
       <main>
-        <Button>測試</Button>
+        <MainSection/>
+        <BrowseSection/>
       </main>
       <footer>
 
