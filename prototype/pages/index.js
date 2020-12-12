@@ -14,9 +14,63 @@ import {makeStyles} from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import Link from '@material-ui/core/Link'
 import Head from 'next/head'
-import {Tab, Tabs, TextField, useScrollTrigger} from '@material-ui/core'
+import {Tab, Tabs, TextField, useScrollTrigger, Zoom} from '@material-ui/core'
 import {TabContext, TabPanel} from '@material-ui/lab'
 import Slide from '@material-ui/core/Slide';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import Fab from '@material-ui/core/Fab';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+function SimpleAccordion() {
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      width: '100%',
+    },
+    heading: {
+      fontSize: theme.typography.pxToRem(15),
+      fontWeight: theme.typography.fontWeightRegular,
+    },
+  }));
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <Accordion expanded>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon/>}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography className={classes.heading}>如何聽見福音？</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+            sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion expanded>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon/>}
+          aria-controls="panel2a-content"
+          id="panel2a-header"
+        >
+          <Typography className={classes.heading}>Accordion 2</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+            sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+    </div>
+  );
+}
 
 function HideOnScroll(props) {
   const {children, window} = props;
@@ -51,6 +105,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   heroContent: {
+    marginTop: theme.spacing(2),
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 6),
   },
@@ -80,30 +135,80 @@ const useStyles = makeStyles((theme) => ({
 
 function SimpleCard() {
   return (
-    <Card>
+    <Card style={{width: 400}}>
       <CardMedia
         component="img"
-        height="140"
+        style={{width: 300, margin: '0 auto'}}
         image="/images/logo.jpg"
         title="Contemplative Reptile"
       />
       <CardContent>
-        <Typography variant="h5" component="h2">
+        <Typography variant="h5" component="h2" style={{marginTop: 8}}>
           你聽過神嗎？
         </Typography>
-        <Typography>
+        <Typography style={{marginTop: 20}}>
           西卡神是博愛的，祂允許所有神、智者、甚至人渣都有平等說話的權利。
         </Typography>
-        <Typography>
+        <Typography style={{marginTop: 10}}>
           西卡神會紀錄每個人說的話，並將這些話語平等的傳遞給每一個教徒。
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions style={{justifyContent: 'flex-end', paddingRight: 20}}>
         <Button size="small">想知道更多</Button>
       </CardActions>
     </Card>
   )
 }
+
+function MyForm(props) {
+  const classes = useStyles()
+  const randomKey = Math.random().toString(36).substring(7);
+
+  return (
+    <Container>
+      <Grid container spacing={2} justify="center" style={{marginTop: 8, justifyContent: 'flex-end', textAlign: 'center'}}>
+          <Grid item>
+            <TextField variant="outlined" margin="dense" value={randomKey} disabled={true}/>
+          </Grid>
+          <Grid item>
+            <Button>
+              重新產生密鑰
+            </Button>
+          </Grid>
+      </Grid>
+      <Typography variant="h4" color="textPrimary" style={{marginTop: 8}}>
+        你剛剛聽見－－
+      </Typography>
+      <Grid container style={{marginTop: 16}}>
+        <Grid item>
+          <TextField
+            placeholder={'誰說？'}
+            style={{flex: 1}}
+          />
+        </Grid>
+      </Grid>
+      <Grid container style={{marginTop: 8}}>
+        <Grid item xs={12}>
+          <TextField
+            style={{width: '100%', marginTop: 8}}
+            multiline
+            variant="outlined"
+            rows={8}
+            placeholder={'說了什麼？'}
+          />
+        </Grid>
+      </Grid>
+      <Grid container spacing={2} justify="center" style={{marginTop: 8, justifyContent: 'flex-end'}}>
+        <Grid item>
+          <Button variant="contained" color="primary">
+            送出給大家知道
+          </Button>
+        </Grid>
+      </Grid>
+    </Container>
+  )
+}
+
 
 export default function Home(props) {
   const classes = useStyles()
@@ -151,7 +256,6 @@ export default function Home(props) {
     setTabValue(newValue)
   };
 
-
   return (
     <>
       <Head>
@@ -165,7 +269,7 @@ export default function Home(props) {
 
       <>
         <HideOnScroll {...props}>
-          <AppBar position="fixed">
+          <AppBar>
             <Toolbar>
               <CameraIcon className={classes.icon}/>
               <Typography variant="h6" color="inherit" noWrap>
@@ -174,38 +278,19 @@ export default function Home(props) {
             </Toolbar>
           </AppBar>
         </HideOnScroll>
-        <main>
+        <main style={{marginTop: 30}}>
           {/* Hero unit */}
           <div className={classes.heroContent}>
-            <Container maxWidth="sm">
-              <SimpleCard/>
-              <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-                你剛剛聽見－－
-              </Typography>
-              <div style={{display: 'flex'}}>
-                <TextField
-                  placeholder={'誰'}
-                  style={{flex: 1}}
-                />
-                <Typography align="center" color="textPrimary">
-                  說
-                </Typography>
-                <TextField
-                  multiline
-                  placeholder={'說了什麼？'}
-                  style={{flex: 1}}
-                />
-              </div>
-
-              <div className={classes.heroButtons}>
-                <Grid container spacing={2} justify="center">
-                  <Grid item>
-                    <Button variant="contained" color="primary">
-                      送出給大家知道
-                    </Button>
-                  </Grid>
+            <Container maxWidth="md">
+              <Grid container spacing={2}>
+                <Grid item xs={6}>
+                  <SimpleCard/>
                 </Grid>
-              </div>
+                <Grid item xs={6}>
+                  <MyForm/>
+                </Grid>
+              </Grid>
+
             </Container>
           </div>
           <Container className={classes.cardGrid} maxWidth="md">
@@ -219,6 +304,7 @@ export default function Home(props) {
               >
                 <Tab value={'0'} label="全部"/>
                 <Tab value={'1'} label="我聽見的"/>
+                <Tab value={'2'} label="說明"/>
               </Tabs>
               <TabPanel value={'0'}>
                 <Grid container spacing={4}>
@@ -251,6 +337,40 @@ export default function Home(props) {
                   ))}
                 </Grid>
               </TabPanel>
+              <TabPanel value={'1'}>
+                <Grid container spacing={4}>
+                  {gospels.map((gospel, i) => (
+                    <Grid item key={i} xs={12} sm={6} md={4}>
+                      <Card className={classes.card}>
+                        <CardMedia
+                          className={classes.cardMedia}
+                          image="https://source.unsplash.com/random"
+                          title="Image title"
+                        />
+                        <CardContent className={classes.cardContent}>
+                          <Typography gutterBottom variant="h5" component="h2">
+                            {gospel.name}
+                          </Typography>
+                          <Typography>
+                            {gospel.message}
+                          </Typography>
+                        </CardContent>
+                        <CardActions>
+                          <Button size="small" color="primary">
+                            修改
+                          </Button>
+                          <Button size="small" color="primary">
+                            刪除
+                          </Button>
+                        </CardActions>
+                      </Card>
+                    </Grid>
+                  ))}
+                </Grid>
+              </TabPanel>
+              <TabPanel value={'2'}>
+                <SimpleAccordion/>
+              </TabPanel>
             </TabContext>
           </Container>
         </main>
@@ -265,7 +385,49 @@ export default function Home(props) {
           <Copyright/>
         </footer>
         {/* End footer */}
+        <ScrollTop {...props}>
+          <Fab color="secondary" size="small" aria-label="scroll back to top">
+            <KeyboardArrowUpIcon/>
+          </Fab>
+        </ScrollTop>
       </>
     </>
   )
+}
+
+function ScrollTop(props) {
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      position: 'fixed',
+      bottom: theme.spacing(2),
+      right: theme.spacing(2),
+    },
+  }));
+
+  const {children, window} = props;
+  const classes = useStyles();
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+    disableHysteresis: true,
+    threshold: 100,
+  });
+
+  const handleClick = (event) => {
+    const anchor = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
+
+    if (anchor) {
+      anchor.scrollIntoView({behavior: 'smooth', block: 'center'});
+    }
+  };
+
+  return (
+    <Zoom in={trigger}>
+      <div onClick={handleClick} role="presentation" className={classes.root}>
+        {children}
+      </div>
+    </Zoom>
+  );
 }
