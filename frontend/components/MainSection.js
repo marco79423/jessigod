@@ -9,7 +9,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: theme.spacing(2),
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
   },
 }))
 
@@ -19,7 +20,7 @@ export default function MainSection() {
   return (
     <section className={classes.root}>
       <Container maxWidth="md">
-        <Grid container spacing={2}>
+        <Grid container spacing={2} alignContent="space-around">
           <Grid item sm={6} xs={12}>
             <Description/>
           </Grid>
