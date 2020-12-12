@@ -24,7 +24,7 @@ import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-  const randomKey = Math.random().toString(36).substring(7);
+const randomKey = Math.random().toString(36).substring(7);
 
 const AccordionSummary = withStyles({
   content: {
@@ -171,53 +171,50 @@ function SimpleCard() {
 function MyForm(props) {
   const classes = useStyles()
 
-
   return (
-    <Container>
-      <Grid container spacing={2} justify="center"
-            style={{marginTop: 8, justifyContent: 'flex-end', textAlign: 'center'}}>
-        <Grid item>
-          <Typography style={{marginTop: 8}}>我的密錀： </Typography>
-        </Grid>
-        <Grid item>
-          <TextField variant="outlined" margin="dense" value={randomKey}/>
-        </Grid>
-        <Grid item>
-          <Button>
-            重新產生密鑰
-          </Button>
-        </Grid>
-      </Grid>
-      <Typography variant="h4" color="textPrimary" style={{marginTop: 8}}>
-        你剛剛聽見－－
-      </Typography>
-      <Grid container style={{marginTop: 16}}>
-        <Grid item>
-          <TextField
-            placeholder={'誰說？'}
-            style={{flex: 1}}
-          />
+    <Grid container style={{flexDirection: 'column', justifyContent: 'space-between', height: '100%'}}>
+      <Grid item>
+        <Grid container spacing={2} justify="center" style={{marginTop: 8, alignItems: 'center'}}>
+          <Grid item style={{flex: 1}}></Grid>
+          <Grid item>
+            <Typography>我的密錀： {randomKey}</Typography>
+          </Grid>
+          <Grid item>
+            <Button variant="contained">
+              重新產生密鑰
+            </Button>
+          </Grid>
         </Grid>
       </Grid>
-      <Grid container style={{marginTop: 8}}>
-        <Grid item xs={12}>
-          <TextField
-            style={{width: '100%', marginTop: 8}}
-            multiline
-            variant="outlined"
-            rows={8}
-            placeholder={'說了什麼？'}
-          />
+      <Grid item>
+        <Grid container style={{marginTop: 16, alignItems: 'center'}} spacing={1}>
+          <Grid item>
+            <Typography>你聽見</Typography>
+          </Grid>
+          <Grid item>
+            <TextField variant="outlined" margin="dense" placeholder={'誰說？'}/>
+          </Grid>
+        </Grid>
+        <Grid container style={{marginTop: 8}}>
+          <Grid item xs={12}>
+            <TextField
+              style={{width: '100%', marginTop: 8}}
+              multiline
+              variant="outlined"
+              rows={10}
+              placeholder={'說了什麼？'}
+            />
+          </Grid>
+        </Grid>
+        <Grid container spacing={2} justify="center" style={{marginTop: 8, justifyContent: 'flex-end'}}>
+          <Grid item>
+            <Button variant="contained" color="primary">
+              送出給大家知道
+            </Button>
+          </Grid>
         </Grid>
       </Grid>
-      <Grid container spacing={2} justify="center" style={{marginTop: 8, justifyContent: 'flex-end'}}>
-        <Grid item>
-          <Button variant="contained" color="primary">
-            送出給大家知道
-          </Button>
-        </Grid>
-      </Grid>
-    </Container>
+    </Grid>
   )
 }
 
@@ -294,12 +291,12 @@ export default function Home(props) {
           {/* Hero unit */}
           <div className={classes.heroContent}>
             <Container maxWidth="md">
-              <Grid container spacing={2} style={{alignItems: 'flex-end'}}>
-                <Grid item xs={6}>
+              <Grid container spacing={2}>
+                <Grid item sm={6} xs={12}>
                   <SimpleCard/>
                 </Grid>
-                <Grid item xs={6}>
-                  <MyForm/>
+                <Grid item sm={6} xs={12}>
+                  <MyForm style={{marginBottom: 24}}/>
                 </Grid>
               </Grid>
 
