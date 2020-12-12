@@ -1,14 +1,17 @@
-import Head from 'next/head'
+import Button from '@material-ui/core/Button'
 
 export default function Index() {
   return (
     <>
-      <Head>
-        <title>西卡神教福音</title>
-        <link rel="icon" href="/favicon.ico"/>
-      </Head>
+      <header>
 
-      <main>Main</main>
+      </header>
+      <main>
+        <Button>測試</Button>
+      </main>
+      <footer>
+
+      </footer>
     </>
   )
 }
