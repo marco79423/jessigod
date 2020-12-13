@@ -20,7 +20,7 @@ export default function MainSection() {
   return (
     <section className={classes.root}>
       <Container maxWidth="md">
-        <Grid container spacing={2} alignContent="space-around">
+        <Grid container spacing={2} alignContent="space-around" alignItems="center">
           <Grid item sm={6} xs={12}>
             <Description/>
           </Grid>
