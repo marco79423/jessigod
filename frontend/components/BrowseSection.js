@@ -4,6 +4,8 @@ import Container from '@material-ui/core/Container'
 import {Tab, Tabs} from '@material-ui/core'
 import {TabContext, TabPanel} from '@material-ui/lab'
 
+import Sayings from './Sayings'
+
 const useStyles = makeStyles((theme) => ({
   root: {
     background: theme.palette.background.default,
@@ -13,9 +15,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
+
 export default function BrowseSection() {
   const classes = useStyles()
-  const [tabValue, setTabValue] = React.useState('0')
+  const [tabValue, setTabValue] = React.useState('全部')
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue)
@@ -27,7 +30,7 @@ export default function BrowseSection() {
         <TabContext value={tabValue}>
           <Tabs
             className={classes.tabs}
-            value="全部"
+            value={tabValue}
             onChange={handleTabChange}
             indicatorColor="primary"
             textColor="primary"
@@ -38,10 +41,10 @@ export default function BrowseSection() {
             <Tab value="教義說明" label="教義說明"/>
           </Tabs>
           <TabPanel value="全部">
-            全部
+            <Sayings/>
           </TabPanel>
           <TabPanel value="我聽見的">
-            我聽見的
+            <Sayings/>
           </TabPanel>
           <TabPanel value="教義說明">
             教義說明
