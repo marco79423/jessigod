@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid'
 import {makeStyles} from '@material-ui/core/styles'
 
 import Description from './Description'
-import GospelForm from './GospelForm'
+import SayingForm from './SayingForm'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,7 +25,7 @@ export default function MainSection() {
             <Description/>
           </Grid>
           <Grid item sm={6} xs={12}>
-            <GospelForm/>
+            <SayingForm/>
           </Grid>
         </Grid>
       </Container>
