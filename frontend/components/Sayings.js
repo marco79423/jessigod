@@ -1,9 +1,8 @@
 import Grid from '@material-ui/core/Grid'
 import SayingCard from './SayingCard'
 import React from 'react'
-import useSWR from 'swr'
 import {makeStyles} from '@material-ui/core/styles'
-
+import {useSayings} from '../helpers'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -13,27 +12,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   }
 }))
-
-
-function fetchJSON(url) {
-  return fetch(url)
-    .then(res => res.json())
-    .then(data => data.data)
-}
-
-function useSayings() {
-  const {data, error} = useSWR(
-    '/api/sayings',
-    fetchJSON,
-  )
-
-  return {
-    sayings: data,
-    isLoading: !error && !data,
-    isError: error
-  }
-}
-
 export default function Sayings() {
   const classes = useStyles()
   const {sayings, isLoading, isError} = useSayings()

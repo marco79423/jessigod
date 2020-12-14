@@ -2,6 +2,7 @@ import {makeStyles} from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
+import {useSecretKey} from '../helpers'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,16 +33,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const randomKey = Math.random().toString(36).substring(7)
-
-
 export default function SayingForm() {
   const classes = useStyles()
+  const {secretKey, isLoading} = useSecretKey()
 
   return (
     <div className={classes.root}>
       <div className={classes.secretKeyPanel}>
-        <Typography>我的密錀： {randomKey}</Typography>
+        {isLoading ? null : (
+          <Typography>我的密錀： {secretKey}</Typography>
+        )}
       </div>
 
       <div className={classes.inputPanel}>
