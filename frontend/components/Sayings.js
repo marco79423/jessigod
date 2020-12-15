@@ -12,14 +12,14 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-export default function Sayings() {
+export default function Sayings({author}) {
   const classes = useStyles()
 
   const [nextPageIndex, setNextPageIndex] = useState(0)
   const [sayings, setSayings] = useState([])
 
   function loadMoreSayings() {
-    fetch(`/api/sayings?pageIndex=${nextPageIndex}`)
+    fetch(`/api/sayings?pageIndex=${nextPageIndex}&author=${author}`)
       .then(res => res.json())
       .then(data => {
         setNextPageIndex((nextPageIndex + 1 <= Math.ceil(data.pagination.totalSize / data.pagination.pageSize) - 1) ? nextPageIndex + 1 : null)

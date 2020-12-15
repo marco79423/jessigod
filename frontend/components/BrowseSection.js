@@ -45,7 +45,7 @@ export default function BrowseSection() {
             <Sayings/>
           </TabPanel>
           <TabPanel value="我聽見的">
-            <Sayings/>
+            <Sayings author="me"/>
           </TabPanel>
           <TabPanel value="教義說明">
             <Questions/>
