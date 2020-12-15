@@ -9,7 +9,7 @@ import {makeStyles} from '@material-ui/core/styles'
 const useStyles = makeStyles((theme) => ({
   root: {
   },
-  whom: {
+  name: {
     fontSize: '1.5rem',
     fontWeight: 400,
   },
@@ -28,8 +28,8 @@ export default function SayingCard({saying}) {
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography className={classes.whom} variant="h1">
-          {saying.whom}
+        <Typography className={classes.name} variant="h1">
+          {saying.name}
         </Typography>
         <Typography className={classes.content}>
           {saying.content}
