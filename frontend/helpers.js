@@ -27,16 +27,3 @@ export function useSecretKey() {
     isError: error
   }
 }
-
-export function useSayings() {
-  const {data, error} = useSWR(
-    '/api/sayings',
-    fetchJSON,
-  )
-
-  return {
-    sayings: data,
-    isLoading: !error && !data,
-    isError: error
-  }
-}
