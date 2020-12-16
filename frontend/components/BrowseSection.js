@@ -39,16 +39,12 @@ export default function BrowseSection() {
           >
             <Tab value="全部" label="全部"/>
             <Tab value="我聽見的" label="我聽見的"/>
-            <Tab value="教義說明" label="教義說明"/>
           </Tabs>
           <TabPanel value="全部">
             <Sayings/>
           </TabPanel>
           <TabPanel value="我聽見的">
             <Sayings author="me"/>
-          </TabPanel>
-          <TabPanel value="教義說明">
-            <Questions/>
           </TabPanel>
         </TabContext>
       </Container>
