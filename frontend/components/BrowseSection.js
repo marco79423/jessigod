@@ -5,7 +5,6 @@ import {Tab, Tabs} from '@material-ui/core'
 import {TabContext, TabPanel} from '@material-ui/lab'
 
 import Sayings from './Sayings'
-import Questions from './Questions'
 
 const useStyles = makeStyles((theme) => ({
   root: {
