@@ -21,6 +21,7 @@ class Pagination(BaseModel):
 
     class Config:
         alias_generator = to_camel
+        allow_population_by_field_name = True
 
 
 class ResponseBase(BaseModel):
@@ -30,7 +31,7 @@ class ResponseBase(BaseModel):
 
     class Config:
         alias_generator = to_camel
-
+        allow_population_by_field_name = True
 
 # Saying
 
@@ -48,6 +49,7 @@ class Saying(BaseModel):
 
     class Config:
         alias_generator = to_camel
+        allow_population_by_field_name = True
 
 
 class SayingsOut(ResponseBase):

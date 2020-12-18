@@ -65,9 +65,9 @@ async def get_sayings(
             ) for saying in sayings.offset(page_index * page_size).limit(page_size)
         ],
         pagination=schemas.Pagination(
-           pageIndex=page_index,
-           pageSize=page_size,
-           totalSize=sayings.count(),
+           page_index=page_index,
+           page_size=page_size,
+           total_size=sayings.count(),
         ),
     )
 
