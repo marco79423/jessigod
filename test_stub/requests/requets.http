@@ -1,0 +1,24 @@
+### 新增名言
+POST {{host}}/api/sayings
+Authorization: SIGOD bac
+
+{
+  "origin": "origin",
+  "content": "content"
+}
+
+### 成功取得所有名言
+GET {{host}}/api/sayings
+
+### 成功取得所有名言
+GET {{host}}/api/sayings?pageIndex=0&editorOnly=1
+Authorization: SIGOD bac
+
+### 修改名言
+PUT {{host}}/api/sayings/2f029d50-3108-450b-8cdb-4a1a60b6542c
+Authorization: SIGOD bac
+
+{
+  "origin": "origin",
+  "content": "content"
+}

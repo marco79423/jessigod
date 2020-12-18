@@ -43,7 +43,7 @@ export default function BrowseSection() {
             <Sayings/>
           </TabPanel>
           <TabPanel value="我聽見的">
-            <Sayings author="me"/>
+            <Sayings editorOnly={true}/>
           </TabPanel>
         </TabContext>
       </Container>

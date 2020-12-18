@@ -39,20 +39,24 @@ export default function SayingCard({saying}) {
       <Card className={classes.root}>
         <CardContent>
           <Typography className={classes.name} variant="h1">
-            {saying.name}
+            {saying.origin}
           </Typography>
           <Typography className={classes.content}>
             {saying.content}
           </Typography>
         </CardContent>
-        <CardActions className={classes.actions}>
-          <Button onClick={handleDialogOpen} size="small" color="primary">
-            修改
-          </Button>
-          <Button size="small" color="primary">
-            刪除
-          </Button>
-        </CardActions>
+        {
+          saying.editable ? (
+            <CardActions className={classes.actions}>
+              <Button onClick={handleDialogOpen} size="small" color="primary">
+                修改
+              </Button>
+              <Button size="small" color="primary">
+                刪除
+              </Button>
+            </CardActions>
+          ) : null
+        }
       </Card>
       <EditSayingDialog defaultName={saying.name}
                         defaultContent={saying.content}

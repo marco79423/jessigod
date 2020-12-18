@@ -3,6 +3,7 @@ import SayingCard from './SayingCard'
 import React, {useState} from 'react'
 import {makeStyles} from '@material-ui/core/styles'
 import InfiniteScroll from 'react-infinite-scroller'
+import {useSecretKey} from '../helpers'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -12,19 +13,29 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-export default function Sayings({author}) {
+export default function Sayings({editorOnly = false}) {
   const classes = useStyles()
-
+  const {secretKey, isLoading} = useSecretKey()
   const [nextPageIndex, setNextPageIndex] = useState(0)
   const [sayings, setSayings] = useState([])
 
   function loadMoreSayings() {
-    fetch(`/api/sayings?pageIndex=${nextPageIndex}&author=${author}`)
+    fetch(`/api/sayings?pageIndex=${nextPageIndex}&editorOnly=${editorOnly}`, {
+      headers: {
+        'Authorization': `SIGOD ${secretKey}`
+      }
+    })
       .then(res => res.json())
       .then(data => {
         setNextPageIndex((nextPageIndex + 1 <= Math.ceil(data.pagination.totalSize / data.pagination.pageSize) - 1) ? nextPageIndex + 1 : null)
         setSayings([...sayings, ...data.data])
       })
+  }
+
+  if (isLoading) {
+    return (
+      <div className="loader">西卡神正在思考要不要理你……</div>
+    )
   }
 
   return (

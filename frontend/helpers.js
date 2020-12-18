@@ -1,13 +1,6 @@
 import useSWR from 'swr'
 
 
-function fetchJSON(url) {
-  return fetch(url)
-    .then(res => res.json())
-    .then(data => data.data)
-}
-
-
 export function useSecretKey() {
   const {data, error} = useSWR(
     '/secretKey',
