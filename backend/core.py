@@ -84,7 +84,11 @@ def modify_saying(db: Session, token: str, saying_id: str, saying_in: schemas.Sa
     saying.origin_id = origin.id
     saying.content = saying_in.content
     db.add(saying)
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError as e:
+        raise HTTPException(status_code=400, detail='不能新增重復的內容')
+    
     db.refresh(saying)
 
     return saying
