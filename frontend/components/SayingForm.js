@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography'
 
 import {useSecretKey} from '../helpers'
 import ConfirmDialog from './ConfirmDialog'
+import {Snackbar} from '@material-ui/core'
+import {Alert} from '@material-ui/lab'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,9 +42,19 @@ const useStyles = makeStyles((theme) => ({
 export default function SayingForm() {
   const classes = useStyles()
   const [confirmOpen, setConfirmOpen] = useState(false)
+  const [errorOpen, setErrorOpen] = useState(false)
   const {secretKey, isLoading} = useSecretKey()
   const originInputRef = useRef()
   const contentInputRef = useRef()
+
+
+  const handleErrorOpen = () => {
+    setErrorOpen(true)
+  }
+
+  const handleErrorClose = () => {
+    setErrorOpen(false)
+  }
 
   const handleConfirmDialogOpen = () => {
     setConfirmOpen(true)
@@ -62,6 +74,8 @@ export default function SayingForm() {
       }
     }).then(res => {
       window.location.reload()
+    }).catch(err => {
+      handleErrorOpen()
     })
   }
 
@@ -102,6 +116,18 @@ export default function SayingForm() {
         open={confirmOpen}
         handleConfirm={handleConfirm}
         handleClose={handleConfirmCancel}/>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        open={errorOpen}
+        autoHideDuration={6000}
+        onClose={handleErrorClose}>
+        <Alert onClose={handleErrorClose} severity="error">
+          你做錯了什麼事，西卡神略帶怒意的看著你……
+        </Alert>
+      </Snackbar>
     </>
   )
 }
