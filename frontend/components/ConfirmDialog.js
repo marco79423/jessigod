@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export default function ConfirmDialog({open, handleClose}) {
+export default function ConfirmDialog({open, handleConfirm, handleClose}) {
   const classes = useStyles()
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
@@ -38,7 +38,7 @@ export default function ConfirmDialog({open, handleClose}) {
         <Button variant="contained" onClick={handleClose}>
           放棄
         </Button>
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={handleConfirm}>
           確定
         </Button>
       </DialogActions>
