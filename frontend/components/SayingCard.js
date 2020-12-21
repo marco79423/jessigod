@@ -6,6 +6,9 @@ import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import {makeStyles} from '@material-ui/core/styles'
 import EditSayingDialog from './EditSayingDialog'
+import ConfirmDialog from './ConfirmDialog'
+import axios from 'axios'
+import {useSecretKey} from '../helpers'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -25,6 +28,8 @@ const useStyles = makeStyles((theme) => ({
 export default function SayingCard({saying}) {
   const classes = useStyles()
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const {secretKey} = useSecretKey()
 
   const handleDialogOpen = () => {
     setDialogOpen(true)
@@ -33,6 +38,25 @@ export default function SayingCard({saying}) {
   const handleDialogClose = () => {
     setDialogOpen(false)
   }
+
+  const handleConfirmDialogOpen = () => {
+    setConfirmOpen(true)
+  }
+
+  const handleConfirmCancel = () => {
+    setConfirmOpen(false)
+  }
+
+  const handleConfirm = () => {
+    axios.delete(`/api/sayings/${saying.id}`, {
+      headers: {
+        Authorization: `SIGOD ${secretKey}`
+      }
+    }).then(res => {
+      window.location.reload()
+    })
+  }
+
 
   return (
     <>
@@ -51,7 +75,7 @@ export default function SayingCard({saying}) {
               <Button onClick={handleDialogOpen} size="small" color="primary">
                 修改
               </Button>
-              <Button size="small" color="primary">
+              <Button size="small" color="primary" onClick={handleConfirmDialogOpen}>
                 刪除
               </Button>
             </CardActions>
@@ -63,6 +87,10 @@ export default function SayingCard({saying}) {
                         defaultContent={saying.content}
                         open={dialogOpen}
                         handleClose={handleDialogClose}/>
+      <ConfirmDialog
+        open={confirmOpen}
+        handleConfirm={handleConfirm}
+        handleClose={handleConfirmCancel}/>
     </>
   )
 }

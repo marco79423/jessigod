@@ -88,7 +88,19 @@ def modify_saying(db: Session, token: str, saying_id: str, saying_in: schemas.Sa
         db.commit()
     except IntegrityError as e:
         raise HTTPException(status_code=400, detail='不能新增重復的內容')
-    
+
     db.refresh(saying)
 
     return saying
+
+
+def delete_saying(db: Session, token: str, saying_id: str):
+    saying = db.query(models.Saying).filter_by(id=saying_id).first()
+    if not token:
+        raise HTTPException(status_code=404, detail='該名言不存在')
+
+    if saying.editor.token != token:
+        raise HTTPException(status_code=403, detail='不能刪除別人新增的名言')
+
+    db.delete(saying)
+    db.commit()

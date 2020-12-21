@@ -65,9 +65,9 @@ async def get_sayings(
             ) for saying in sayings.offset(page_index * page_size).limit(page_size)
         ],
         pagination=schemas.Pagination(
-           page_index=page_index,
-           page_size=page_size,
-           total_size=sayings.count(),
+            page_index=page_index,
+            page_size=page_size,
+            total_size=sayings.count(),
         ),
     )
 
@@ -116,6 +116,21 @@ async def modify_saying(
             content=saying.content,
         )
     )
+
+
+@app.delete('/api/sayings/{saying_id}', response_model=None)
+async def delete_saying(
+        saying_id: str,
+        credentials: HTTPAuthorizationCredentials = Security(security),
+        db: Session = Depends(get_db)):
+    token = credentials.credentials
+
+    core.delete_saying(
+        db,
+        token=token,
+        saying_id=saying_id,
+    )
+    return fastapi.Response(status_code=204)
 
 
 if __name__ == '__main__':
