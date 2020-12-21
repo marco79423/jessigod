@@ -61,9 +61,13 @@ def create_saying(db: Session, token, saying_in: schemas.SayingIn):
 
 def get_sayings(db: Session, token: str, editor_only: bool):
     q = db.query(models.Saying)
+
     if token and editor_only:
         editor = get_or_create_editor(db, token)
         q.filter_by(editor_id=editor.id)
+
+    q = q.order_by(models.Saying.created_at.desc())
+
     return q
 
 
