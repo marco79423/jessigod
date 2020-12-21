@@ -58,7 +58,8 @@ export default function SayingCard({saying}) {
           ) : null
         }
       </Card>
-      <EditSayingDialog defaultName={saying.name}
+      <EditSayingDialog id={saying.id}
+                        defaultName={saying.origin}
                         defaultContent={saying.content}
                         open={dialogOpen}
                         handleClose={handleDialogClose}/>
