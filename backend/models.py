@@ -9,7 +9,7 @@ from .database import Base
 class Editor(Base):
     __tablename__ = 'editor'
 
-    id = Column(String, primary_key=True)
+    id = Column(String(36), primary_key=True)
     token = Column(String, unique=True, index=True)
     sayings = relationship('Saying', back_populates='editor')
     created_at = Column(DateTime, default=dt.datetime.utcnow)
@@ -18,7 +18,7 @@ class Editor(Base):
 class Origin(Base):
     __tablename__ = 'origin'
 
-    id = Column(String, primary_key=True)
+    id = Column(String(36), primary_key=True)
     name = Column(String, unique=True, index=True)
     sayings = relationship('Saying', back_populates='origin')
     created_at = Column(DateTime, default=dt.datetime.utcnow)
@@ -27,7 +27,7 @@ class Origin(Base):
 class Saying(Base):
     __tablename__ = 'saying'
 
-    id = Column(String, primary_key=True, index=True)
+    id = Column(String(36), primary_key=True, index=True)
     editor_id = Column(String, ForeignKey('editor.id'))
     editor = relationship('Editor', back_populates='sayings')
     origin_id = Column(String, ForeignKey('origin.id'))
