@@ -22,7 +22,7 @@ export default function Sayings({editorOnly = false}) {
   function loadMoreSayings() {
     fetch(`/api/sayings?pageIndex=${nextPageIndex}&editorOnly=${editorOnly}`, {
       headers: {
-        'Authorization': `SIGOD ${secretKey}`
+        'Authorization': `Jessi ${secretKey}`
       }
     })
       .then(res => res.json())

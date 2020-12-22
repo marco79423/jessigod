@@ -63,7 +63,7 @@ export default function EditSayingDialog({id, defaultName, defaultContent, open,
       'content': contentInputRef.current.value,
     }, {
       headers: {
-        Authorization: `SIGOD ${secretKey}`
+        Authorization: `Jessi ${secretKey}`
       }
     }).then(res => {
       window.location.reload()

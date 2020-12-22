@@ -70,7 +70,7 @@ export default function SayingForm() {
       'content': contentInputRef.current.value,
     }, {
       headers: {
-        Authorization: `SIGOD ${secretKey}`
+        Authorization: `Jessi ${secretKey}`
       }
     }).then(res => {
       window.location.reload()

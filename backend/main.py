@@ -13,7 +13,7 @@ from backend.database import SessionLocal, engine
 models.Base.metadata.create_all(bind=engine)
 
 app = fastapi.FastAPI()
-security = HTTPBase(scheme='SIGOD')
+security = HTTPBase(scheme='Jessi')
 
 
 def get_db():

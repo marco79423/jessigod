@@ -50,7 +50,7 @@ export default function SayingCard({saying}) {
   const handleConfirm = () => {
     axios.delete(`/api/sayings/${saying.id}`, {
       headers: {
-        Authorization: `SIGOD ${secretKey}`
+        Authorization: `Jessi ${secretKey}`
       }
     }).then(res => {
       window.location.reload()
