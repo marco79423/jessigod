@@ -1,0 +1,2 @@
+server:
+  database_url: sqlite:///./sql_app.db
