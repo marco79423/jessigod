@@ -2,18 +2,20 @@ from typing import Optional
 
 import fastapi
 import uvicorn
-from fastapi import Depends, Query, Security
+from fastapi import Depends, Query, Security, BackgroundTasks, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials
 from fastapi.security.http import HTTPBase
 from sqlalchemy.orm import Session
 
 from backend import models, schemas, core
+from backend.config import conf
 from backend.database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
 
 app = fastapi.FastAPI()
 security = HTTPBase(scheme='Jessi')
+admin_security = HTTPBase(scheme='Jessigod')
 
 
 def get_db():
@@ -131,6 +133,27 @@ async def delete_saying(
         saying_id=saying_id,
     )
     return fastapi.Response(status_code=204)
+
+
+def handle_propagation_task(task_id, task_in: schemas.TaskIn, db: Session):
+    print(task_in.mode, task_in.data)
+
+
+@app.post('/api/propagation-tasks', response_model=schemas.TaskOut)
+async def create_propagation_task(
+        task_in: schemas.TaskIn,
+        background_tasks: BackgroundTasks,
+        credentials: HTTPAuthorizationCredentials = Security(admin_security),
+        db: Session = Depends(get_db)):
+    if credentials.credentials != conf.server.admin_token:
+        raise HTTPException(status_code=403, detail='你沒有管理員權限')
+
+    task_id = core.generate_id()
+    background_tasks.add_task(handle_propagation_task, task_id, task_in, db)
+
+    return schemas.TaskOut(
+        data=task_id,
+    )
 
 
 if __name__ == '__main__':

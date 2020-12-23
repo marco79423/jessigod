@@ -33,6 +33,7 @@ class ResponseBase(BaseModel):
         alias_generator = to_camel
         allow_population_by_field_name = True
 
+
 # Saying
 
 
@@ -58,3 +59,14 @@ class SayingsOut(ResponseBase):
 
 class SayingOut(ResponseBase):
     data: Saying
+
+
+# Task
+
+class TaskIn(RequestBase):
+    mode: str
+    data: Optional[Any]
+
+
+class TaskOut(ResponseBase):
+    data: str

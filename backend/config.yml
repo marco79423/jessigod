@@ -1,2 +1,3 @@
 server:
   database_url: sqlite:///./sql_app.db
+  admin_token: token
