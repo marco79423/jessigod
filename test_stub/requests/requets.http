@@ -22,3 +22,22 @@ Authorization: Jessi bac
   "origin": "origin",
   "content": "content"
 }
+
+### 傳播名言
+POST {{host}}/api/propagation-tasks
+Authorization: Jessigod token
+
+{
+   "mode": "random"
+}
+
+### 傳播名言
+POST {{host}}/api/propagation-tasks
+Authorization: Jessigod token
+
+{
+   "mode": "specific",
+   "data": {
+     "sayingID": ""
+   }
+}
