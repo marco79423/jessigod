@@ -1,10 +1,14 @@
 import uuid
 
+import linebot
 from fastapi.exceptions import HTTPException
+from linebot.models import TextSendMessage
+from sqlalchemy import func
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from backend import schemas, models
+from backend.config import conf
 
 
 def generate_id():
@@ -104,3 +108,19 @@ def delete_saying(db: Session, token: str, saying_id: str):
 
     db.delete(saying)
     db.commit()
+
+
+def handle_propagation_task(task_id, task_in: schemas.TaskIn, db: Session):
+    mode = task_in.mode if task_in.mode else 'random'
+    if mode == 'random':
+        saying = db.query(models.Saying).order_by(func.random()).first()
+    else:
+        print('尚不支援別的模式...')
+        return
+
+    for receiver in conf.receivers:
+        if receiver.type == 'line-channel':
+            line_bot_api = linebot.LineBotApi(receiver.secret)
+            line_bot_api.broadcast(TextSendMessage(text=f'{saying.content} - {saying.origin.name}'))
+
+    print(f'任務 {task_id} 完成！')

@@ -135,10 +135,6 @@ async def delete_saying(
     return fastapi.Response(status_code=204)
 
 
-def handle_propagation_task(task_id, task_in: schemas.TaskIn, db: Session):
-    print(task_in.mode, task_in.data)
-
-
 @app.post('/api/propagation-tasks', response_model=schemas.TaskOut)
 async def create_propagation_task(
         task_in: schemas.TaskIn,
@@ -149,7 +145,7 @@ async def create_propagation_task(
         raise HTTPException(status_code=403, detail='你沒有管理員權限')
 
     task_id = core.generate_id()
-    background_tasks.add_task(handle_propagation_task, task_id, task_in, db)
+    background_tasks.add_task(core.handle_propagation_task, task_id, task_in, db)
 
     return schemas.TaskOut(
         data=task_id,
