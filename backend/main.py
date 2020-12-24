@@ -2,6 +2,8 @@ from typing import Optional
 
 import fastapi
 import uvicorn
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.triggers.cron import CronTrigger
 from fastapi import Depends, Query, Security, BackgroundTasks, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials
 from fastapi.security.http import HTTPBase
@@ -16,6 +18,12 @@ models.Base.metadata.create_all(bind=engine)
 app = fastapi.FastAPI()
 security = HTTPBase(scheme='Jessi')
 admin_security = HTTPBase(scheme='Jessigod')
+
+scheduler = AsyncIOScheduler()
+scheduler.start()
+
+for schedule in conf.preacher.schedules:
+    scheduler.add_job(core.handle_schedule_task, CronTrigger.from_crontab(schedule))
 
 
 def get_db():

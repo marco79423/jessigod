@@ -2,7 +2,10 @@ server:
   database_url: sqlite:///./sql_app.db
   admin_token: token
 
-receivers:
-  - name: line
-    type: line-channel
-    secret: <secret>
+preacher:
+  schedules:
+    - '0 9 * * *'
+  receivers:
+    - name: line
+      type: line-channel
+      secret: <secret>

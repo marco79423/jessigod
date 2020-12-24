@@ -13,3 +13,6 @@ pydantic==1.7.3
 
 # communication
 line-bot-sdk==1.18.0
+
+# scheduler
+APScheduler==3.6.3

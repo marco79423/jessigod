@@ -7,7 +7,7 @@ from sqlalchemy import func
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
-from backend import schemas, models
+from backend import schemas, models, database
 from backend.config import conf
 
 
@@ -118,9 +118,22 @@ def handle_propagation_task(task_id, task_in: schemas.TaskIn, db: Session):
         print('尚不支援別的模式...')
         return
 
-    for receiver in conf.receivers:
+    for receiver in conf.preacher.receivers:
         if receiver.type == 'line-channel':
             line_bot_api = linebot.LineBotApi(receiver.secret)
             line_bot_api.broadcast(TextSendMessage(text=f'{saying.content} - {saying.origin.name}'))
 
     print(f'任務 {task_id} 完成！')
+
+
+def handle_schedule_task():
+    task_id = generate_id()
+
+    db = database.SessionLocal()
+    try:
+        handle_propagation_task(task_id, schemas.TaskIn(
+            mode='random',
+        ), db)
+    finally:
+        db.close()
+
