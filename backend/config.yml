@@ -1,5 +1,5 @@
 server:
-  database_url: sqlite:///./sql_app.db
+  database_url: sqlite:///./sql_app.db?check_same_thread=False
   admin_token: token
 
 preacher:
