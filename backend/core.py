@@ -55,11 +55,7 @@ def create_saying(db: Session, token, saying_in: schemas.SayingIn):
         content=saying_in.content
     )
     db.add(saying)
-
-    try:
-        db.commit()
-    except IntegrityError as e:
-        raise HTTPException(status_code=400, detail='不能新增重復的內容')
+    db.commit()
     db.refresh(saying)
 
     return saying
@@ -89,11 +85,9 @@ def modify_saying(db: Session, token: str, saying_id: str, saying_in: schemas.Sa
 
     saying.origin_id = origin.id
     saying.content = saying_in.content
+
     db.add(saying)
-    try:
-        db.commit()
-    except IntegrityError as e:
-        raise HTTPException(status_code=400, detail='不能新增重復的內容')
+    db.commit()
 
     db.refresh(saying)
 

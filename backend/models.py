@@ -1,6 +1,6 @@
 import datetime as dt
 
-from sqlalchemy import Column, String, Text, ForeignKey, DateTime
+from sqlalchemy import Column, String, Text, ForeignKey, DateTime, Unicode
 from sqlalchemy.orm import relationship
 
 from database import Base
@@ -32,5 +32,5 @@ class Saying(Base):
     editor = relationship('Editor', back_populates='sayings')
     origin_id = Column(String(36), ForeignKey('origin.id'))
     origin = relationship('Origin', back_populates='sayings')
-    content = Column(Text, unique=True)
+    content = Column(Unicode(2048))
     created_at = Column(DateTime, index=True, default=dt.datetime.utcnow)
