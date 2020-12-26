@@ -1,4 +1,7 @@
+import getConfig from 'next/config'
 import httpProxyMiddleware from 'next-http-proxy-middleware'
+
+const { serverRuntimeConfig } = getConfig()
 
 export const config = {
   api: {
@@ -8,6 +11,6 @@ export const config = {
 
 export default (req, res) => (
   httpProxyMiddleware(req, res, {
-    target: 'http://localhost:8000',
+    target: serverRuntimeConfig.backendUrl,
   })
 )
