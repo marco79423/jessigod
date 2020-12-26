@@ -7,8 +7,10 @@ from sqlalchemy import func
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
-from backend import schemas, models, database
-from backend.config import conf
+import database
+import models
+import schemas
+from config import conf
 
 
 def generate_id():
@@ -136,4 +138,3 @@ def handle_schedule_task():
         ), db)
     finally:
         db.close()
-

@@ -9,9 +9,11 @@ from fastapi.security import HTTPAuthorizationCredentials
 from fastapi.security.http import HTTPBase
 from sqlalchemy.orm import Session
 
-from backend import models, schemas, core
-from backend.config import conf
-from backend.database import SessionLocal, engine
+import core
+import models
+import schemas
+from config import conf
+from database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
 
