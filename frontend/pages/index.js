@@ -12,7 +12,7 @@ const ScrollTop = dynamic(() => import("../components/ScrollTop"), { ssr: false 
 export default function Index() {
   return (
     <>
-      <header id="#header">
+      <header id="header">
         <AppBar />
       </header>
       <main>
