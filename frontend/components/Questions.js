@@ -13,10 +13,12 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
   },
+  question: {
+  },
   header: {},
   headerTitle: {
-    fontSize: '1.5rem',
-    fontWeight: 400,
+    fontSize: '1.25rem',
+    fontWeight: 800,
   },
   content: {
     marginTop: theme.spacing(1),
@@ -38,6 +40,8 @@ const AccordionSummary = withStyles({
 const AccordionDetails = withStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.action.hover,
+    display: 'flex',
+    flexDirection: 'column',
   },
 }))(MuiAccordionDetails)
 
@@ -49,6 +53,7 @@ export default function Questions() {
     <div className={classes.root}>
       <HowToHearGodQuestion/>
       <HowToTalkQuestion/>
+      <HowToContributeQuestion/>
     </div>
   )
 }
@@ -58,7 +63,7 @@ function HowToHearGodQuestion() {
   const classes = useStyles()
 
   return (
-    <Accordion defaultExpanded>
+    <Accordion className={classes.question}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon/>}
         classes={classes.summary}
@@ -70,7 +75,8 @@ function HowToHearGodQuestion() {
           className={classes.content}>西卡神是博愛的，祂允許所有神、智者、甚至人渣都有平等說話的權利。<br/>西卡神會紀錄每個人說的話，並將這些話語平等的傳遞給每一個教徒。</Typography>
       </AccordionSummary>
       <AccordionDetails className={classes.detail}>
-        <Typography className={classes.detailContent}>每天九點，西卡神會自動推送大家說的話到各個平台。<br/><br/>西卡神教 Line 官方帳號：<br/> <Image width={200} height={200} src="/images/line-channel.png"/></Typography>
+        <Typography className={classes.detailContent}>每天九點，西卡神會自動推送大家說的話到各個平台。<br/><br/>西卡神教 Line 官方帳號：<br/> <Image
+          width={200} height={200} src="/images/line-channel.png"/></Typography>
       </AccordionDetails>
     </Accordion>
   )
@@ -87,7 +93,7 @@ function HowToTalkQuestion() {
   }
 
   return (
-    <Accordion>
+    <Accordion className={classes.question}>
       <AccordionSummary expandIcon={<ExpandMoreIcon/>}>
         <header className={classes.header}>
           <Typography className={classes.headerTitle} variant="h1">如何平等的說話？</Typography>
@@ -108,6 +114,30 @@ function HowToTalkQuestion() {
             }
             label="編輯時顯示密錀"
           /></Typography>
+      </AccordionDetails>
+    </Accordion>
+  )
+}
+
+function HowToContributeQuestion() {
+  const classes = useStyles()
+
+  return (
+    <Accordion className={classes.question}>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon/>}
+        classes={classes.summary}
+      >
+        <header className={classes.header}>
+          <Typography className={classes.headerTitle} variant="h1">我想奉獻自己一份心力！</Typography>
+        </header>
+        <Typography
+          className={classes.content}>西卡神接受各種各樣的下賤人類的奉獻，無論是你會設計、會寫程式還是各種垃圾技能都能有一席之地。</Typography>
+      </AccordionSummary>
+      <AccordionDetails className={classes.detail}>
+        <Typography className={classes.detailContent}>西卡神教網站的 Github 連結： <a
+          target="_blank"
+          href="https://github.com/marco79423/jessigod">連結</a><br/><br/>有什麼想法可以開 Issue 討論，或直接發 PR 也行。</Typography>
       </AccordionDetails>
     </Accordion>
   )
