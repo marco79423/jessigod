@@ -1,13 +1,23 @@
 import useSWR, {mutate} from 'swr'
 
 
+function generateRandomString(length) {
+  let result = ''
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  const charactersLength = characters.length
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength))
+  }
+  return result
+}
+
 export function useSecretKey() {
   const {data, error} = useSWR(
     '/secretKey',
     () => {
       let secretKey = window.localStorage.getItem('secretKey')
       if (!secretKey) {
-        secretKey = Math.random().toString(36).substring(7)
+        secretKey = generateRandomString(6)
         window.localStorage.setItem('secretKey', secretKey)
       }
       return secretKey
@@ -27,7 +37,7 @@ export function useSecretKeyEnabled() {
     () => {
       let secretKeyEnabled = window.localStorage.getItem('secretKeyEnabled')
       if (secretKeyEnabled == null) {
-        window.localStorage.setItem('secretKey', '0')
+        window.localStorage.setItem('secretKeyEnabled', '0')
       }
       return !!+secretKeyEnabled
     },
