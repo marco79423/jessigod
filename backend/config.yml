@@ -1,5 +1,6 @@
 server:
   database_url: sqlite:///./sql_app.db?check_same_thread=False
+#  database_url: mysql+pymysql://root:1234@localhost/marco79423-jessigod
   admin_token: token
 
 preacher:

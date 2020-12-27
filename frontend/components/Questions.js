@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 import Typography from '@material-ui/core/Typography'
 import {makeStyles, withStyles} from '@material-ui/core/styles'
 import Accordion from '@material-ui/core/Accordion'
@@ -69,7 +70,7 @@ function HowToHearGodQuestion() {
           className={classes.content}>西卡神是博愛的，祂允許所有神、智者、甚至人渣都有平等說話的權利。<br/>西卡神會紀錄每個人說的話，並將這些話語平等的傳遞給每一個教徒。</Typography>
       </AccordionSummary>
       <AccordionDetails className={classes.detail}>
-        <Typography className={classes.detailContent}>每天九點，西卡神會自動推送大家說的話到各個平台 （目前支援 slack、telegram、line 平台）</Typography>
+        <Typography className={classes.detailContent}>每天九點，西卡神會自動推送大家說的話到各個平台。<br/><br/>西卡神教 Line 官方帳號：<br/> <Image width={200} height={200} src="/images/line-channel.png"/></Typography>
       </AccordionDetails>
     </Accordion>
   )
