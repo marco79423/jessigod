@@ -10,7 +10,7 @@ import DescriptionDetail from './DescriptionDetail'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 400,
+    maxWidth: 400,
     margin: `${theme.spacing(1)} ${theme.spacing(4)}`,
   },
   media: {

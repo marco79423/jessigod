@@ -1,11 +1,11 @@
-import {useRef, useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import axios from 'axios'
 import {makeStyles} from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 
-import {useSecretKey} from '../helpers'
+import {useSecretKey, useSecretKeyEnabled} from '../helpers'
 import ConfirmDialog from './ConfirmDialog'
 import {Snackbar} from '@material-ui/core'
 import {Alert} from '@material-ui/lab'
@@ -44,9 +44,9 @@ export default function SayingForm() {
   const [confirmOpen, setConfirmOpen] = useState(false)
   const [errorOpen, setErrorOpen] = useState(false)
   const {secretKey, isLoading} = useSecretKey()
+  const {secretKeyEnabled} = useSecretKeyEnabled()
   const originInputRef = useRef()
   const contentInputRef = useRef()
-
 
   const handleErrorOpen = () => {
     setErrorOpen(true)
@@ -83,11 +83,14 @@ export default function SayingForm() {
   return (
     <>
       <div className={classes.root}>
-        <div className={classes.secretKeyPanel}>
-          {isLoading ? null : (
-            <Typography>我的密錀： {secretKey}</Typography>
-          )}
-        </div>
+        {secretKeyEnabled ? (
+          <div className={classes.secretKeyPanel}>
+            {isLoading ? null : (
+              <Typography>我的密錀： {secretKey}</Typography>
+            )}
+          </div>
+        ) : null}
+
 
         <div className={classes.inputPanel}>
           <div className={classes.speakerSection}>

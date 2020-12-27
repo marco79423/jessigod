@@ -13,6 +13,11 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: '2rem',
     fontWeight: 600,
+  },
+  actions: {
+    paddingTop: theme.spacing(1),
+    paddingRight: theme.spacing(3),
+    paddingBottom: theme.spacing(2),
   }
 }))
 
@@ -22,13 +27,14 @@ export default function DescriptionDetail({open, handleClose}) {
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
-    <Dialog className={classes.root} fullScreen={fullScreen} maxWidth="md" scroll="body" open={open} onClose={handleClose}>
+    <Dialog className={classes.root} fullScreen={fullScreen} maxWidth="md" scroll="body" open={open}
+            onClose={handleClose}>
       <DialogTitle disableTypography="false" className={classes.title}>教義說明</DialogTitle>
       <DialogContent>
         <Questions/>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose} color="primary">
+      <DialogActions className={classes.actions}>
+        <Button variant="contained" size="large" onClick={handleClose} color="primary">
           我瞭解了
         </Button>
       </DialogActions>

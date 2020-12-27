@@ -5,10 +5,10 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import {useSecretKey} from '../helpers'
+import {useSecretKey, useSecretKeyEnabled} from '../helpers'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
-import React, {useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import axios from 'axios'
 import {Alert} from '@material-ui/lab'
 import {Snackbar} from '@material-ui/core'
@@ -45,6 +45,7 @@ export default function EditSayingDialog({id, defaultName, defaultContent, open,
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const [errorOpen, setErrorOpen] = useState(false)
   const {secretKey, isLoading} = useSecretKey()
+  const {secretKeyEnabled} = useSecretKeyEnabled()
   const originInputRef = useRef()
   const contentInputRef = useRef()
 
@@ -78,11 +79,13 @@ export default function EditSayingDialog({id, defaultName, defaultContent, open,
               onClose={handleClose}>
         <DialogTitle disableTypography="false" className={classes.title}>編輯我聽見的話</DialogTitle>
         <DialogContent>
-          <div className={classes.secretKeyPanel}>
-            {isLoading ? null : (
-              <Typography>我的密錀： {secretKey}</Typography>
-            )}
-          </div>
+          {secretKeyEnabled ? (
+            <div className={classes.secretKeyPanel}>
+              {isLoading ? null : (
+                <Typography>我的密錀： {secretKey}</Typography>
+              )}
+            </div>
+          ) : null}
           <div className={classes.inputPanel}>
             <div className={classes.speakerSection}>
               <Typography>你聽見</Typography>

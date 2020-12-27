@@ -1,4 +1,4 @@
-import useSWR from 'swr'
+import useSWR, {mutate} from 'swr'
 
 
 export function useSecretKey() {
@@ -18,5 +18,30 @@ export function useSecretKey() {
     secretKey: data,
     isLoading: !error && !data,
     isError: error
+  }
+}
+
+export function useSecretKeyEnabled() {
+  const {data, error} = useSWR(
+    '/secretKeyEnabled',
+    () => {
+      let secretKeyEnabled = window.localStorage.getItem('secretKeyEnabled')
+      if (secretKeyEnabled == null) {
+        window.localStorage.setItem('secretKey', '0')
+      }
+      return !!+secretKeyEnabled
+    },
+  )
+
+  const setSecretKeyEnabled = (secretKeyEnabled) => {
+    window.localStorage.setItem('secretKeyEnabled', secretKeyEnabled ? '1' : '0')
+    mutate('/secretKeyEnabled', secretKeyEnabled)
+  }
+
+  return {
+    secretKeyEnabled: data,
+    isLoading: !error && !data,
+    isError: error,
+    setSecretKeyEnabled: setSecretKeyEnabled,
   }
 }

@@ -5,7 +5,8 @@ import Accordion from '@material-ui/core/Accordion'
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary'
-import {useSecretKey} from '../helpers'
+import {useSecretKey, useSecretKeyEnabled} from '../helpers'
+import {FormControlLabel, Switch} from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -78,6 +79,11 @@ function HowToHearGodQuestion() {
 function HowToTalkQuestion() {
   const classes = useStyles()
   const {secretKey} = useSecretKey()
+  const {secretKeyEnabled, setSecretKeyEnabled} = useSecretKeyEnabled()
+
+  const handleChange = (event) => {
+    setSecretKeyEnabled(event.target.checked)
+  }
 
   return (
     <Accordion>
@@ -90,7 +96,17 @@ function HowToTalkQuestion() {
         </Typography>
       </AccordionSummary>
       <AccordionDetails className={classes.detail}>
-        <Typography className={classes.detailContent}>您的密錀是「{secretKey}」，由瀏覽器隨機產生，已存在瀏覽器中，不清快取會一直保留。<br/>您必須使用同樣的「密錀」才能刪改對應的福音。服務器只會紀錄密錀與福音的關聯，不會知道密鑰對應的是誰。</Typography>
+        <Typography className={classes.detailContent}>您的密錀是「{secretKey}」，由瀏覽器隨機產生，已存在瀏覽器中，不清快取會一直保留。<br/>您必須使用同樣的「密錀」才能刪改對應的福音。服務器只會紀錄密錀與福音的關聯，不會知道密鑰對應的是誰。<br/>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={secretKeyEnabled}
+                onChange={handleChange}
+                color="primary"
+              />
+            }
+            label="編輯時顯示密錀"
+          /></Typography>
       </AccordionDetails>
     </Accordion>
   )
