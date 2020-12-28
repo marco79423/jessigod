@@ -1,19 +1,17 @@
-import {useRef, useState} from 'react'
-import axios from 'axios'
+import React, {useRef, useState} from 'react'
+import {Button, Card, CardActions, CardContent, TextField, Typography} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
-import Typography from '@material-ui/core/Typography'
 
-import {useSecretKey, useSecretKeyEnabled} from '../helpers'
+import sayingManager from '../../../core/features/sayingManager'
+import useSecretKey from '../../hooks/useSecretKey'
+import useIsSecretKeyShown from '../../hooks/useIsSecretKeyShown'
 import ConfirmDialog from './ConfirmDialog'
-import {Card, CardContent, CardHeader, Snackbar} from '@material-ui/core'
-import {Alert} from '@material-ui/lab'
-import CardActions from '@material-ui/core/CardActions'
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    marginBottom: theme.spacing(2),
     padding: theme.spacing(2),
+    borderRadius: theme.spacing(4),
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
@@ -42,57 +40,41 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SayingForm() {
   const classes = useStyles()
-  const [confirmOpen, setConfirmOpen] = useState(false)
-  const [errorOpen, setErrorOpen] = useState(false)
+  const [confirmDialogOpen, setConfirmDialog] = useState(false)
   const {secretKey, isLoading} = useSecretKey()
-  const {secretKeyEnabled} = useSecretKeyEnabled()
+  const {isSecretKeyShown} = useIsSecretKeyShown()
   const originInputRef = useRef()
   const contentInputRef = useRef()
 
-  const handleErrorOpen = () => {
-    setErrorOpen(true)
+  const showConfirmDialog = () => {
+    setConfirmDialog(true)
   }
 
-  const handleErrorClose = () => {
-    setErrorOpen(false)
+  const hideConfirmDialog = () => {
+    setConfirmDialog(false)
   }
 
-  const handleConfirmDialogOpen = () => {
-    setConfirmOpen(true)
+  const createSaying = async () => {
+    const saying = {
+      origin: originInputRef.current.value,
+      content: contentInputRef.current.value,
+    }
+    await sayingManager.create(saying)
+    window.location.reload()
   }
-
-  const handleConfirmCancel = () => {
-    setConfirmOpen(false)
-  }
-
-  const handleConfirm = () => {
-    axios.post('/api/sayings', {
-      'origin': originInputRef.current.value,
-      'content': contentInputRef.current.value,
-    }, {
-      headers: {
-        Authorization: `Jessi ${secretKey}`
-      }
-    }).then(res => {
-      window.location.reload()
-    }).catch(err => {
-      handleErrorOpen()
-    })
-  }
-
 
   return (
     <>
       <Card className={classes.root}>
         <CardContent>
-          {secretKeyEnabled ? (
+          {isSecretKeyShown ? (
             <div className={classes.secretKeyPanel}>
               {isLoading ? null : (
                 <Typography>我的密錀： {secretKey}</Typography>
               )}
             </div>
           ) : null}
-          
+
           <div className={classes.inputPanel}>
             <div className={classes.speakerSection}>
               <Typography>你聽見</Typography>
@@ -112,27 +94,16 @@ export default function SayingForm() {
           </div>
         </CardContent>
         <CardActions className={classes.actionSection}>
-          <Button onClick={handleConfirmDialogOpen} variant="contained" color="primary" size="large">
-            送出給大家知道
-          </Button>
+          <Button variant="contained" color="primary" size="large" onClick={showConfirmDialog}>送出給大家知道</Button>
         </CardActions>
       </Card>
+
       <ConfirmDialog
-        open={confirmOpen}
-        handleConfirm={handleConfirm}
-        handleClose={handleConfirmCancel}/>
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        open={errorOpen}
-        autoHideDuration={6000}
-        onClose={handleErrorClose}>
-        <Alert onClose={handleErrorClose} severity="error">
-          你做錯了什麼事，西卡神略帶怒意的看著你……
-        </Alert>
-      </Snackbar>
+        open={confirmDialogOpen}
+        confirmLabel={'新增'}
+        cancelLabel={'取消'}
+        onConfirm={createSaying}
+        onCancel={hideConfirmDialog}/>
     </>
   )
 }

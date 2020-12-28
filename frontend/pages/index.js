@@ -1,33 +1,27 @@
-import React, {useEffect} from 'react'
-import dynamic from 'next/dynamic'
+import React from 'react'
+import {makeStyles} from '@material-ui/core/styles'
 
-import AppBar from '../components/AppBar'
-import MainSection from '../components/MainSection'
-import BrowseSection from '../components/BrowseSection'
-import Copyright from '../components/Copyright'
+import BaseLayout from '../components/layouts/BaseLayout/BaseLayout'
+import MainBanner from '../components/features/MainBanner'
+import SayingsBrowser from '../components/features/SayingBrowser'
 
-
-const ScrollTop = dynamic(() => import('../components/ScrollTop'), {ssr: false})
+const useStyles = makeStyles((theme) => ({
+  root: {},
+  mainSection: {},
+  browseSection: {},
+}))
 
 export default function Index() {
-
-  useEffect(() => {
-    console.log('%c%s', 'color: red; background: yellow; font-size: 72px;', '西卡神正在有點嚴肅的看著你……')
-  }, [])
+  const classes = useStyles()
 
   return (
-    <>
-      <header id="header">
-        <AppBar/>
-      </header>
-      <main>
-        <MainSection/>
-        <BrowseSection/>
-      </main>
-      <footer>
-        <Copyright/>
-      </footer>
-      <ScrollTop selector="#header"/>
-    </>
+    <BaseLayout className={classes.root}>
+      <section className={classes.mainSection}>
+        <MainBanner/>
+      </section>
+      <section className={classes.browseSection}>
+        <SayingsBrowser/>
+      </section>
+    </BaseLayout>
   )
 }

@@ -1,4 +1,4 @@
-import Typography from '@material-ui/core/Typography'
+import {Typography} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
@@ -8,12 +8,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function Copyright() {
+export default function Copyright({owner}) {
   const classes = useStyles()
 
   return (
     <Typography className={classes.root} color="textSecondary" align="center">
-      {`Copyright © 西卡神教 ${new Date().getFullYear()}.`}
+      {`Copyright © ${owner} ${new Date().getFullYear()}.`}
     </Typography>
   )
 }

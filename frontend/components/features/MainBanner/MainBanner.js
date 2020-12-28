@@ -1,34 +1,32 @@
-import Container from '@material-ui/core/Container'
-import Grid from '@material-ui/core/Grid'
+import React from 'react'
+import {Container, Grid, Paper} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
 
-import Description from './Description'
-import SayingForm from './SayingForm'
+import AboutGod from '../AboutGod'
+import SayingForm from '../SayingForm'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: theme.spacing(2),
-    backgroundColor: theme.palette.background.paper,
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
+    paddingTop: theme.spacing(2),
   },
 }))
 
-export default function MainSection() {
+
+export default function MainBanner() {
   const classes = useStyles()
 
   return (
-    <section className={classes.root}>
+    <Paper className={classes.root}>
       <Container maxWidth="md">
         <Grid container spacing={2} alignContent="space-around" alignItems="center">
           <Grid item sm={6} xs={12}>
-            <Description/>
+            <AboutGod/>
           </Grid>
           <Grid item sm={6} xs={12}>
             <SayingForm/>
           </Grid>
         </Grid>
       </Container>
-    </section>
+    </Paper>
   )
 }

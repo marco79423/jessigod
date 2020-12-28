@@ -1,12 +1,8 @@
-import {makeStyles} from '@material-ui/core/styles'
-import CardMedia from '@material-ui/core/CardMedia'
-import CardContent from '@material-ui/core/CardContent'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
-import Card from '@material-ui/core/Card'
-import CardActions from '@material-ui/core/CardActions'
 import {useState} from 'react'
-import DescriptionDetail from './DescriptionDetail'
+import {Button, Card, CardActions, CardContent, CardMedia, Typography} from '@material-ui/core'
+import {makeStyles} from '@material-ui/core/styles'
+
+import DetailDialog from './DetailDialog'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export default function Description() {
+export default function AboutGod() {
   const classes = useStyles()
   const [detailOpen, setDetailOpen] = useState(false)
 
@@ -55,7 +51,7 @@ export default function Description() {
           component="img"
           className={classes.media}
           image="/images/god.jpg"
-          title="西卡神"
+          title="西卡神聖像"
         />
         <CardContent>
           <Typography className={classes.header} variant="subtitle1">{header}</Typography>
@@ -65,7 +61,9 @@ export default function Description() {
           <Button onClick={handleDetailOpen}>想知道更多</Button>
         </CardActions>
       </Card>
-      <DescriptionDetail open={detailOpen} handleClose={handleDetailClose}/>
+      <DetailDialog
+        open={detailOpen}
+        onClose={handleDetailClose}/>
     </>
   )
 }

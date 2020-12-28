@@ -1,24 +1,21 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {makeStyles} from '@material-ui/core/styles'
-import Container from '@material-ui/core/Container'
-import {Tab, Tabs} from '@material-ui/core'
+import {Container, Tab, Tabs} from '@material-ui/core'
 import {TabContext, TabPanel} from '@material-ui/lab'
 
-import Sayings from './Sayings'
+import SayingsCardGrids from './SayingsCardGrids'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    background: theme.palette.background.default,
-  },
+  root: {},
   tabs: {
     marginTop: theme.spacing(3),
   }
 }))
 
 
-export default function BrowseSection() {
+export default function SayingBrowser() {
   const classes = useStyles()
-  const [tabValue, setTabValue] = React.useState('全部')
+  const [tabValue, setTabValue] = useState('全部')
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue)
@@ -40,10 +37,10 @@ export default function BrowseSection() {
             <Tab value="我聽見的" label="我聽見的"/>
           </Tabs>
           <TabPanel value="全部">
-            <Sayings/>
+            <SayingsCardGrids/>
           </TabPanel>
           <TabPanel value="我聽見的">
-            <Sayings editorOnly={true}/>
+            <SayingsCardGrids editorOnly={true}/>
           </TabPanel>
         </TabContext>
       </Container>
