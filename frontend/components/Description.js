@@ -10,6 +10,7 @@ import DescriptionDetail from './DescriptionDetail'
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    boxShadow: 'none',
     maxWidth: 400,
     margin: `${theme.spacing(1)} ${theme.spacing(4)}`,
   },

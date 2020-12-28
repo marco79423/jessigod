@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react'
+import {useRef, useState} from 'react'
 import axios from 'axios'
 import {makeStyles} from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
@@ -7,14 +7,15 @@ import Typography from '@material-ui/core/Typography'
 
 import {useSecretKey, useSecretKeyEnabled} from '../helpers'
 import ConfirmDialog from './ConfirmDialog'
-import {Snackbar} from '@material-ui/core'
+import {Card, CardContent, CardHeader, Snackbar} from '@material-ui/core'
 import {Alert} from '@material-ui/lab'
+import CardActions from '@material-ui/core/CardActions'
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    padding: theme.spacing(2),
     flexDirection: 'column',
     justifyContent: 'space-between',
-    height: '100%'
   },
   secretKeyPanel: {
     display: 'flex',
@@ -82,39 +83,40 @@ export default function SayingForm() {
 
   return (
     <>
-      <div className={classes.root}>
-        {secretKeyEnabled ? (
-          <div className={classes.secretKeyPanel}>
-            {isLoading ? null : (
-              <Typography>我的密錀： {secretKey}</Typography>
-            )}
+      <Card className={classes.root}>
+        <CardContent>
+          {secretKeyEnabled ? (
+            <div className={classes.secretKeyPanel}>
+              {isLoading ? null : (
+                <Typography>我的密錀： {secretKey}</Typography>
+              )}
+            </div>
+          ) : null}
+          
+          <div className={classes.inputPanel}>
+            <div className={classes.speakerSection}>
+              <Typography>你聽見</Typography>
+              <TextField inputRef={originInputRef} className={classes.nameInput} variant="outlined" margin="dense"
+                         placeholder={'誰說？'}/>
+            </div>
+            <div className={classes.contentSection}>
+              <TextField
+                inputRef={contentInputRef}
+                multiline
+                fullWidth
+                variant="outlined"
+                rows={10}
+                placeholder={'說了什麼？'}
+              />
+            </div>
           </div>
-        ) : null}
-
-
-        <div className={classes.inputPanel}>
-          <div className={classes.speakerSection}>
-            <Typography>你聽見</Typography>
-            <TextField inputRef={originInputRef} className={classes.nameInput} variant="outlined" margin="dense"
-                       placeholder={'誰說？'}/>
-          </div>
-          <div className={classes.contentSection}>
-            <TextField
-              inputRef={contentInputRef}
-              multiline
-              fullWidth
-              variant="outlined"
-              rows={10}
-              placeholder={'說了什麼？'}
-            />
-          </div>
-          <div className={classes.actionSection}>
-            <Button onClick={handleConfirmDialogOpen} variant="contained" color="primary" size="large">
-              送出給大家知道
-            </Button>
-          </div>
-        </div>
-      </div>
+        </CardContent>
+        <CardActions className={classes.actionSection}>
+          <Button onClick={handleConfirmDialogOpen} variant="contained" color="primary" size="large">
+            送出給大家知道
+          </Button>
+        </CardActions>
+      </Card>
       <ConfirmDialog
         open={confirmOpen}
         handleConfirm={handleConfirm}
