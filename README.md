@@ -43,3 +43,21 @@
                 ...
 
 ### 後端
+
+使用 fastapi / sqlalchemy 開發。
+
+#### 專案架構
+
+    backend/
+        requirements.txt
+        main.py                          # 啟始點
+        dependencies.py                  # 相依
+        routers/                         # 路由
+            ...
+        internal/
+            bootstrap.py                 # 啟動服務
+            core.py                      # 功能
+            database.py                  # 資料庫相關
+            models.py                    # 資料庫 Model
+            schemas.py                   # schema
+            utils.py                     # 工具包

@@ -1,27 +1,21 @@
-import uuid
-
 import linebot
 from fastapi.exceptions import HTTPException
 from linebot.models import TextSendMessage
 from sqlalchemy import func
-from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
-import database
-import models
-import schemas
 from config import conf
-
-
-def generate_id():
-    return str(uuid.uuid4())
+from internal import database
+from internal import models
+from internal import schemas
+from internal import utils
 
 
 def get_or_create_editor(db: Session, token: str):
     editor = db.query(models.Editor).filter_by(token=token).first()
     if not editor:
         editor = models.Editor(
-            id=generate_id(),
+            id=utils.generate_id(),
             token=token,
         )
         db.add(editor)
@@ -35,7 +29,7 @@ def get_or_create_origin(db: Session, name: str):
     origin = db.query(models.Origin).filter_by(name=name).first()
     if not origin:
         origin = models.Origin(
-            id=generate_id(),
+            id=utils.generate_id(),
             name=name,
         )
         db.add(origin)
@@ -49,7 +43,7 @@ def create_saying(db: Session, token, saying_in: schemas.SayingIn):
     origin = get_or_create_origin(db, saying_in.origin)
 
     saying = models.Saying(
-        id=generate_id(),
+        id=utils.generate_id(),
         editor_id=editor.id,
         origin_id=origin.id,
         content=saying_in.content
@@ -123,7 +117,7 @@ def handle_propagation_task(task_id, task_in: schemas.TaskIn, db: Session):
 
 
 def handle_schedule_task():
-    task_id = generate_id()
+    task_id = utils.generate_id(),
 
     db = database.SessionLocal()
     try:

@@ -1,9 +1,9 @@
 import datetime as dt
 
-from sqlalchemy import Column, String, Text, ForeignKey, DateTime, Unicode
+from sqlalchemy import Column, String, ForeignKey, DateTime, Unicode
 from sqlalchemy.orm import relationship
 
-from database import Base
+from internal.database import Base
 
 
 class Editor(Base):

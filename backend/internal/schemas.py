@@ -2,12 +2,8 @@ from typing import List, Any, Optional
 
 from pydantic import BaseModel, Field
 
-
-def to_camel(string: str) -> str:
-    return ''.join(word.capitalize() if idx != 0 else word for idx, word in enumerate(string.split('_')))
-
-
 # Base
+from internal import utils
 
 
 class RequestBase(BaseModel):
@@ -20,7 +16,7 @@ class Pagination(BaseModel):
     total_size: int
 
     class Config:
-        alias_generator = to_camel
+        alias_generator = utils.to_camel
         allow_population_by_field_name = True
 
 
@@ -30,7 +26,7 @@ class ResponseBase(BaseModel):
     error: Optional[Any]
 
     class Config:
-        alias_generator = to_camel
+        alias_generator = utils.to_camel
         allow_population_by_field_name = True
 
 
@@ -49,7 +45,7 @@ class Saying(BaseModel):
     content: str
 
     class Config:
-        alias_generator = to_camel
+        alias_generator = utils.to_camel
         allow_population_by_field_name = True
 
 
