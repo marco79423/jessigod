@@ -1,8 +1,6 @@
-# 傑西神 jessigod
+# 傑西神教 jessigod
 
 ![jessigod](./logo.jpg)
-
-西卡神教
 
 網站： https://jessigod.marco79423.net/
 
