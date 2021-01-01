@@ -19,8 +19,8 @@ export class SayingManager {
     const secretKey = secretKeyManager.get()
 
     const jsonData = {
-      origin: saying.origin,
-      content: saying.content,
+      origin: saying.origin.trim(),
+      content: saying.content.trim(),
     }
 
     await axios.post('/api/sayings', jsonData, {
@@ -34,8 +34,8 @@ export class SayingManager {
     const secretKey = secretKeyManager.get()
 
     const jsonData = {
-      origin: saying.origin,
-      content: saying.content,
+      origin: saying.origin.trim(),
+      content: saying.content.trim(),
     }
 
     await axios.put(`/api/sayings/${saying.id}`, jsonData, {
