@@ -22,9 +22,9 @@ const AccordionDetails = withStyles((theme) => ({
   },
 }))(MuiAccordionDetails)
 
-export function QAItem({question, answer, answerDetail}) {
+export function QAItem({defaultExpanded, question, answer, answerDetail}) {
   return (
-    <Accordion>
+    <Accordion defaultExpanded={defaultExpanded}>
       <AccordionSummary expandIcon={<ExpandMoreIcon/>}>
         <header>
           {question}
@@ -50,6 +50,7 @@ export default function Faq({data}) {
       {data.map(qaItem => (
         <QAItem
           key={qaItem.id}
+          defaultExpanded={!!qaItem.defaultExpanded}
           question={qaItem.question}
           answer={qaItem.answer}
           answerDetail={qaItem.answerDetail}
