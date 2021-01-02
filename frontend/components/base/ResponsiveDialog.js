@@ -7,7 +7,7 @@ export default function ResponsiveDialog({children, className, open, onClose}) {
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
-    <Dialog className={className}
+    <Dialog classes={{paper: className}}
             fullScreen={fullScreen} maxWidth="md"
             scroll="body"
             open={open}

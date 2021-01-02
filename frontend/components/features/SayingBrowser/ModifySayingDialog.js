@@ -9,7 +9,10 @@ import Alert from '../../base/Alert'
 import ResponsiveDialog from '../../base/ResponsiveDialog'
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    padding: theme.spacing(2),
+    borderRadius: theme.spacing(3),
+  },
   title: {
     fontSize: '2rem',
     fontWeight: 600,
@@ -22,16 +25,19 @@ const useStyles = makeStyles((theme) => ({
   inputPanel: {},
   speakerSection: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'baseline',
   },
   nameInput: {
     marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
   contentSection: {
     marginTop: theme.spacing(1),
     width: theme.breakpoints.values.sm,
   },
-  actionSection: {}
+  actionSection: {
+    paddingRight: theme.spacing(3),
+  }
 }))
 
 export default function ModifySayingDialog({id, defaultName, defaultContent, open, onClose}) {
@@ -84,7 +90,8 @@ export default function ModifySayingDialog({id, defaultName, defaultContent, ope
                          defaultValue={defaultName}
                          variant="outlined"
                          margin="dense"
-                         placeholder={'誰說？'}/>
+                         placeholder={'某位'}/>
+              <Typography>說了</Typography>
             </div>
             <div className={classes.contentSection}>
               <TextField
@@ -94,7 +101,7 @@ export default function ModifySayingDialog({id, defaultName, defaultContent, ope
                 defaultValue={defaultContent}
                 variant="outlined"
                 rows={10}
-                placeholder={'說了什麼？'}
+                placeholder={'什麼名言高見？'}
               />
             </div>
           </div>

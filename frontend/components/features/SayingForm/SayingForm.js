@@ -23,10 +23,11 @@ const useStyles = makeStyles((theme) => ({
   inputPanel: {},
   speakerSection: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'baseline',
   },
   nameInput: {
     marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
   contentSection: {
     marginTop: theme.spacing(1),
@@ -79,7 +80,8 @@ export default function SayingForm() {
             <div className={classes.speakerSection}>
               <Typography>你聽見</Typography>
               <TextField inputRef={originInputRef} className={classes.nameInput} variant="outlined" margin="dense"
-                         placeholder={'誰說？'}/>
+                         placeholder={'某位'}/>
+              <Typography>說了</Typography>
             </div>
             <div className={classes.contentSection}>
               <TextField
@@ -88,7 +90,7 @@ export default function SayingForm() {
                 fullWidth
                 variant="outlined"
                 rows={10}
-                placeholder={'說了什麼？'}
+                placeholder={'什麼名言高見？'}
               />
             </div>
           </div>
