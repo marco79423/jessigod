@@ -3,6 +3,7 @@ import Image from 'next/image'
 import {makeStyles} from '@material-ui/core/styles'
 import {
   Button,
+  Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
@@ -14,7 +15,6 @@ import {
 import useSecretKey from '../../hooks/useSecretKey'
 import useIsSecretKeyShown from '../../hooks/useIsSecretKeyShown'
 import Faq from '../../base/Faq'
-import ResponsiveDialog from '../../base/ResponsiveDialog'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -93,7 +93,7 @@ export default function DetailDialog({open, onClose}) {
   ]
 
   return (
-    <ResponsiveDialog className={classes.root} open={open} onClose={onClose}>
+    <Dialog scroll="body" maxWidth="md" open={open} onClose={onClose}>
       <DialogTitle disableTypography="false" className={classes.title}>教義說明</DialogTitle>
       <DialogContent><Faq data={data}/></DialogContent>
       <DialogActions className={classes.actions}>
@@ -101,6 +101,6 @@ export default function DetailDialog({open, onClose}) {
           我瞭解了
         </Button>
       </DialogActions>
-    </ResponsiveDialog>
+    </Dialog>
   )
 }

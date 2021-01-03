@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-import {Button, DialogActions, DialogContent, DialogTitle, Typography} from '@material-ui/core'
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
+
 import Alert from '../../base/Alert'
-import ResponsiveDialog from '../../base/ResponsiveDialog'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -40,7 +40,7 @@ export default function ConfirmDialog({open, confirmLabel, cancelLabel, onConfir
 
   return (
     <>
-      <ResponsiveDialog className={classes.root} open={open} onClose={onCancel}>
+      <Dialog open={open} onClose={onCancel}>
         <DialogTitle disableTypography="false" className={classes.title}>你確定嗎？</DialogTitle>
         <DialogContent>
           <Typography className={classes.content}>西卡神正在看著你，你確定嗎？</Typography>
@@ -49,7 +49,7 @@ export default function ConfirmDialog({open, confirmLabel, cancelLabel, onConfir
           <Button variant="contained" onClick={onCancel}>{cancelLabel}</Button>
           <Button variant="contained" color="primary" onClick={confirm}>{confirmLabel}</Button>
         </DialogActions>
-      </ResponsiveDialog>
+      </Dialog>
 
       <Alert
         message={'你做錯了什麼事，西卡神略帶怒意的看著你……'}

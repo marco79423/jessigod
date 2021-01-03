@@ -1,12 +1,11 @@
 import React, {useRef, useState} from 'react'
 import {makeStyles} from '@material-ui/core/styles'
-import {Button, DialogActions, DialogContent, DialogTitle, TextField, Typography} from '@material-ui/core'
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography} from '@material-ui/core'
 
 import sayingManager from '../../../core/features/sayingManager'
 import useSecretKey from '../../hooks/useSecretKey'
 import useIsSecretKeyShown from '../../hooks/useIsSecretKeyShown'
 import Alert from '../../base/Alert'
-import ResponsiveDialog from '../../base/ResponsiveDialog'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,7 +71,7 @@ export default function ModifySayingDialog({id, defaultName, defaultContent, ope
 
   return (
     <>
-      <ResponsiveDialog className={classes.root} open={open} onClose={onClose}>
+      <Dialog classes={{paper: classes.root}} maxWidth="md" open={open} onClose={onClose}>
         <DialogTitle disableTypography="false" className={classes.title}>編輯我聽見的話</DialogTitle>
         <DialogContent>
           {isSecretKeyShown ? (
@@ -110,7 +109,7 @@ export default function ModifySayingDialog({id, defaultName, defaultContent, ope
           <Button variant="contained" onClick={onClose}>取消</Button>
           <Button variant="contained" color="primary" onClick={modifySaying}>修改</Button>
         </DialogActions>
-      </ResponsiveDialog>
+      </Dialog>
       <Alert
         message={'你做錯了什麼事，西卡神略帶怒意的看著你……'}
         open={errorOpen}
