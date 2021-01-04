@@ -42,7 +42,7 @@ export default function AboutGod() {
   }
 
   const header = '你聽過西卡神嗎？'
-  const content = '西卡神是博愛的，祂允許所有神、智者、甚至人渣都有平等說話的權利。\n\n西卡神會紀錄每個人說的話，並將這些話語平等的傳遞給每一個教徒。'
+  const content = '西卡神是博愛的，祂允許所有神、智者、甚至人渣都有平等說話的權利。\n\n西卡神會記錄每個人說的話，並將這些話語平等的傳遞給每一個教徒。'
 
   return (
     <>
