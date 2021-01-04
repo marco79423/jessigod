@@ -60,7 +60,7 @@ export default function DetailDialog({open, onClose}) {
       id: 'how-to-hear-god-question',
       defaultExpanded: true,
       question: <Typography className={classes.question} variant="h1">如何聽見福音？</Typography>,
-      answer: <Typography className={classes.answer}>西卡神是博愛的，祂允許所有神、智者、甚至人渣都有平等說話的權利。<br/>西卡神會紀錄每個人說的話，並將這些話語平等的傳遞給每一個教徒。</Typography>,
+      answer: <Typography className={classes.answer}>西卡神是博愛的，祂允許所有神、智者、甚至人渣都有平等說話的權利。<br/>西卡神會記錄每個人說的話，並將這些話語平等的傳遞給每一個教徒。</Typography>,
       answerDetail: <Typography className={classes.answerDetail}>每天九點，西卡神會自動推送大家說的話到各個平台。<br/><br/>西卡神教 Line
         官方帳號：<br/><Image width={200} height={200} src="/images/line-channel.png"/></Typography>
     },
@@ -69,7 +69,7 @@ export default function DetailDialog({open, onClose}) {
       question: <Typography className={classes.question} variant="h1">如何平等的說話？</Typography>,
       answer: <Typography
         className={classes.answer}>西卡神明白社交使人有壓力，使人不敢吐真言。雖然祂是全知全能的，但還是允許信徒隱藏自己的身份說話；祂也知道不是每個人都有機會說出自己的想法，所以祂也允許信徒代為轉述，這一切都是為了讓信徒們能信奉祂，讚頌祂的偉大。</Typography>,
-      answerDetail: <Typography className={classes.answerDetail}>您的密錀是「{secretKey}」，由瀏覽器隨機產生，已存在瀏覽器中，不清快取會一直保留。<br/>您必須使用同樣的「密錀」才能刪改對應的福音。服務器只會紀錄密錀與福音的關聯，不會知道密鑰對應的是誰。<br/>
+      answerDetail: <Typography className={classes.answerDetail}>您的密錀是「{secretKey}」，由瀏覽器隨機產生，已存在瀏覽器中，不清快取會一直保留。<br/>您必須使用同樣的「密錀」才能刪改對應的福音。服務器只會記錄密錀與福音的關聯，不會知道密鑰對應的是誰。<br/>
         <FormControlLabel
           control={
             <Switch
