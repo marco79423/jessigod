@@ -25,6 +25,29 @@ def get_or_create_editor(db: Session, token: str):
     return editor
 
 
+def get_or_create_line_group(db: Session, group_id: str):
+    line_group = db.query(models.LineGroup).filter_by(group_id=group_id).first()
+    if not line_group:
+        line_group = models.LineGroup(
+            id=utils.generate_id(),
+            group_id=group_id,
+        )
+        db.add(line_group)
+        db.commit()
+        db.refresh(line_group)
+
+    return line_group
+
+
+def delete_line_group(db: Session, group_id: str):
+    db.query(models.LineGroup).filter_by(group_id=group_id).delete()
+    db.commit()
+
+
+def get_line_groups(db: Session):
+    return db.query(models.LineGroup).all()
+
+
 def get_or_create_origin(db: Session, name: str):
     origin = db.query(models.Origin).filter_by(name=name).first()
     if not origin:
@@ -108,10 +131,13 @@ def handle_propagation_task(task_id, task_in: schemas.TaskIn, db: Session):
         print('尚不支援別的模式...')
         return
 
-    for receiver in conf.preacher.receivers:
-        if receiver.type == 'line-channel':
-            line_bot_api = linebot.LineBotApi(receiver.secret)
-            line_bot_api.broadcast(TextSendMessage(text=f'{saying.content} - {saying.origin.name}'))
+    if conf.bots.line_bot.channel_access_token:
+        line_bot_api = linebot.LineBotApi(conf.bots.line_bot.channel_access_token)
+        line_bot_api.broadcast(TextSendMessage(text=f'{saying.content} - {saying.origin.name}'))
+
+        for line_group in get_line_groups(db):
+            line_bot_api.push_message(line_group.group_id,
+                                      TextSendMessage(text=f'{saying.content} - {saying.origin.name}'))
 
     print(f'任務 {task_id} 完成！')
 
@@ -126,3 +152,19 @@ def handle_schedule_task():
         ), db)
     finally:
         db.close()
+
+
+def handle_line_events(events):
+    db = database.SessionLocal()
+
+    for event in events:
+        print('line event', event)
+        if event.type == 'join':
+            if event.source.type == 'group':
+                line_group = get_or_create_line_group(db, event.source.group_id)
+                line_bot_api = linebot.LineBotApi(conf.bots.line_bot.channel_access_token)
+                line_bot_api.push_message(line_group.group_id, TextSendMessage(text='西卡神降臨，快恭迎！'))
+
+        if event.type == 'leave':
+            if event.source.type == 'group':
+                delete_line_group(db, event.source.group_id)

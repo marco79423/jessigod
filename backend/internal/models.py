@@ -34,3 +34,10 @@ class Saying(Base):
     origin = relationship('Origin', back_populates='sayings')
     content = Column(Unicode(2048))
     created_at = Column(DateTime, index=True, default=dt.datetime.utcnow)
+
+
+class LineGroup(Base):
+    __tablename__ = 'line_group'
+
+    id = Column(String(36), primary_key=True, index=True)
+    group_id = Column(String(36), index=True)

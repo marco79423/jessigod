@@ -1,12 +1,14 @@
 server:
   database_url: sqlite:///./sql_app.db?check_same_thread=False
-#  database_url: mysql+pymysql://root:1234@localhost/marco79423-jessigod
+  #  database_url: mysql+pymysql://root:1234@localhost/marco79423-jessigod
   admin_token: token
+
+bots:
+  line_bot:
+    channel_access_token: <token>
+     channel_secret: <secret>
 
 preacher:
   schedules:
     - '0 9 * * *'
-  receivers:
-    - name: line
-      type: line-channel
-      secret: <secret>
+
