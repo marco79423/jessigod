@@ -6,7 +6,7 @@ server:
 bots:
   line_bot:
     channel_access_token: <token>
-     channel_secret: <secret>
+    channel_secret: <secret>
 
 preacher:
   schedules:
