@@ -41,3 +41,10 @@ class LineGroup(Base):
 
     id = Column(String(36), primary_key=True, index=True)
     group_id = Column(String(36), index=True)
+
+
+class TelegramGroup(Base):
+    __tablename__ = 'telegram_group'
+
+    id = Column(String(36), primary_key=True, index=True)
+    chat_id = Column(String(36), index=True)

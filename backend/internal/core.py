@@ -1,4 +1,5 @@
 import linebot
+import telegram
 from fastapi.exceptions import HTTPException
 from linebot.models import TextSendMessage
 from sqlalchemy import func
@@ -46,6 +47,29 @@ def delete_line_group(db: Session, group_id: str):
 
 def get_line_groups(db: Session):
     return db.query(models.LineGroup).all()
+
+
+def get_or_create_telegram_group(db: Session, chat_id: str):
+    telegram_group = db.query(models.TelegramGroup).filter_by(chat_id=chat_id).first()
+    if not telegram_group:
+        telegram_group = models.TelegramGroup(
+            id=utils.generate_id(),
+            chat_id=chat_id,
+        )
+        db.add(telegram_group)
+        db.commit()
+        db.refresh(telegram_group)
+
+    return telegram_group
+
+
+def delete_telegram_group(db: Session, chat_id):
+    db.query(models.TelegramGroup).filter_by(chat_id=chat_id).delete()
+    db.commit()
+
+
+def get_telegram_groups(db: Session):
+    return db.query(models.TelegramGroup).all()
 
 
 def get_or_create_origin(db: Session, name: str):
@@ -131,13 +155,22 @@ def handle_propagation_task(task_id, task_in: schemas.TaskIn, db: Session):
         print('尚不支援別的模式...')
         return
 
-    if conf.bots.line_bot.channel_access_token:
+    if not saying:
+        return
+
+    if conf.bots.line_bot:
         line_bot_api = linebot.LineBotApi(conf.bots.line_bot.channel_access_token)
         line_bot_api.broadcast(TextSendMessage(text=f'{saying.content} - {saying.origin.name}'))
 
         for line_group in get_line_groups(db):
             line_bot_api.push_message(line_group.group_id,
                                       TextSendMessage(text=f'{saying.content} - {saying.origin.name}'))
+
+    if conf.bots.telegram_bot:
+        bot = telegram.Bot(conf.bots.telegram_bot.token)
+
+        for telegram_group in get_telegram_groups(db):
+            bot.send_message(chat_id=telegram_group.chat_id, text=f'{saying.content} - {saying.origin.name}')
 
     print(f'任務 {task_id} 完成！')
 
@@ -168,3 +201,21 @@ def handle_line_events(events):
         if event.type == 'leave':
             if event.source.type == 'group':
                 delete_line_group(db, event.source.group_id)
+
+
+def handle_telegram_update(json_body):
+    db = database.SessionLocal()
+    bot = telegram.Bot(conf.bots.telegram_bot.token)
+
+    update = telegram.Update.de_json(json_body, bot)
+    print('telegram update', update)
+
+    if update.message.new_chat_members:
+        for member in update.message.new_chat_members:
+            if member.username == conf.bots.telegram_bot.bot_username:
+                telegram_group = get_or_create_telegram_group(db, str(update.message.chat_id))
+                bot.send_message(chat_id=telegram_group.chat_id, text='西卡神降臨，快恭迎！')
+
+    if update.message.left_chat_member:
+        if update.message.left_chat_member.username == conf.bots.telegram_bot.bot_username:
+            delete_telegram_group(db, chat_id=str(update.message.chat_id))

@@ -7,6 +7,10 @@ bots:
   line_bot:
     channel_access_token: <token>
     channel_secret: <secret>
+  telegram_bot:
+    url: <url>
+    token: <token>
+    bot_username: <username>
 
 preacher:
   schedules:
