@@ -62,7 +62,7 @@ export default function DetailDialog({open, onClose}) {
       question: <Typography className={classes.question} variant="h1">如何聽見福音？</Typography>,
       answer: <Typography className={classes.answer}>西卡神是博愛的，祂允許所有神、智者、甚至人渣都有平等說話的權利。<br/>西卡神會記錄每個人說的話，並將這些話語平等的傳遞給每一個教徒。</Typography>,
       answerDetail: <Typography className={classes.answerDetail}>每天九點，西卡神會自動推送大家說的話到各個平台。<br/><br/>西卡神教 Line
-        官方帳號：<br/><Image width={200} height={200} src="/images/line-channel.png"/></Typography>
+        官方帳號：<br/><Image width={200} height={200} src="/images/line-channel.png"/><br/>Telegram 群組：<br/>邀請加入 @JessigodBot</Typography>
     },
     {
       id: 'how-to-talk-question',
