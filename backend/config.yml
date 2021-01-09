@@ -11,7 +11,8 @@ bots:
     url: <url>
     token: <token>
     bot_username: <username>
-
+  slack_bot:
+    webhook_url: <token>
 preacher:
   schedules:
     - '0 9 * * *'

@@ -1,4 +1,5 @@
 import linebot
+import slack_sdk
 import telegram
 from fastapi.exceptions import HTTPException
 from linebot.models import TextSendMessage
@@ -171,6 +172,10 @@ def handle_propagation_task(task_id, task_in: schemas.TaskIn, db: Session):
 
         for telegram_group in get_telegram_groups(db):
             bot.send_message(chat_id=telegram_group.chat_id, text=f'{saying.content} - {saying.origin.name}')
+
+    if conf.bots.slack_bot:
+        client = slack_sdk.webhook.WebhookClient(conf.bots.slack_bot.webhook_url)
+        client.send(text=f'{saying.content} - {saying.origin.name}')
 
     print(f'任務 {task_id} 完成！')
 
