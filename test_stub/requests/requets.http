@@ -1,3 +1,6 @@
+### 成功取得所有来源
+GET {{host}}/api/origins
+
 ### 新增名言
 POST {{host}}/api/sayings
 Authorization: Jessi bac

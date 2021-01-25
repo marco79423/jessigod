@@ -86,6 +86,10 @@ def get_or_create_origin(db: Session, name: str):
     return origin
 
 
+def get_origins(db: Session):
+    return db.query(models.Origin).all()
+
+
 def create_saying(db: Session, token, saying_in: schemas.SayingIn):
     editor = get_or_create_editor(db, token)
     origin = get_or_create_origin(db, saying_in.origin)

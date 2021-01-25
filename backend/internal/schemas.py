@@ -30,6 +30,16 @@ class ResponseBase(BaseModel):
         allow_population_by_field_name = True
 
 
+# Origin
+class Origin(BaseModel):
+    id: str
+    name: str
+
+
+class OriginsOut(ResponseBase):
+    data: List[Origin]
+
+
 # Saying
 
 

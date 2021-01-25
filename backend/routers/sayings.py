@@ -14,6 +14,19 @@ router = fastapi.APIRouter()
 security = HTTPBase(scheme='Jessi')
 
 
+@router.get('/api/origins', response_model=schemas.OriginsOut)
+async def get_origins(db: Session = Depends(get_db)):
+    origins = core.get_origins(db)
+    return schemas.OriginsOut(
+        data=[
+            schemas.Origin(
+                id=origin.id,
+                name=origin.name,
+            ) for origin in origins
+        ],
+    )
+
+
 @router.get('/api/sayings', response_model=schemas.SayingsOut)
 async def get_sayings(
         page_index: int = Query(
