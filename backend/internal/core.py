@@ -116,7 +116,6 @@ def get_sayings(db: Session, token: str, origin: str, editor_only: bool):
 
     if origin:
         q = q.join(models.Saying.origin).filter(models.Origin.name == origin)
-        # q = q.filter(models.Origin.id == models.Saying.origin_id, models.Origin.name == origin)
 
     q = q.order_by(models.Saying.created_at.desc())
 
