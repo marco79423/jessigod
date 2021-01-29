@@ -6,6 +6,8 @@ import sayingManager from '../../../core/features/sayingManager'
 import useSecretKey from '../../hooks/useSecretKey'
 import useIsSecretKeyShown from '../../hooks/useIsSecretKeyShown'
 import Alert from '../../base/Alert'
+import useOrigins from '../../hooks/useOrigins'
+import {Autocomplete} from '@material-ui/lab'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,11 +26,12 @@ const useStyles = makeStyles((theme) => ({
   inputPanel: {},
   speakerSection: {
     display: 'flex',
-    alignItems: 'baseline',
+    alignItems: 'center',
   },
   nameInput: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
+    width: 180,
   },
   contentSection: {
     marginTop: theme.spacing(1),
@@ -43,6 +46,7 @@ export default function ModifySayingDialog({id, defaultName, defaultContent, ope
   const classes = useStyles()
   const [errorOpen, setAlert] = useState(false)
   const {secretKey, isLoading} = useSecretKey()
+  const {origins, isLoading: isOriginLoading} = useOrigins()
   const {isSecretKeyShown} = useIsSecretKeyShown()
   const originInputRef = useRef()
   const contentInputRef = useRef()
@@ -84,12 +88,18 @@ export default function ModifySayingDialog({id, defaultName, defaultContent, ope
           <div className={classes.inputPanel}>
             <div className={classes.speakerSection}>
               <Typography>你聽見</Typography>
-              <TextField inputRef={originInputRef}
-                         className={classes.nameInput}
-                         defaultValue={defaultName}
-                         variant="outlined"
-                         margin="dense"
-                         placeholder={'某位'}/>
+              <Autocomplete
+                freeSolo
+                loading={isOriginLoading}
+                options={origins}
+                renderInput={(params) => (
+                  <TextField {...params}
+                             inputRef={originInputRef}
+                             className={classes.nameInput}
+                             variant="outlined"
+                             margin="dense"
+                             placeholder={'某位'}/>
+                )}/>
               <Typography>說了</Typography>
             </div>
             <div className={classes.contentSection}>
