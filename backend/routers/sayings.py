@@ -43,6 +43,11 @@ async def get_sayings(
             ge=0,
             alias='pageSize',
         ),
+        origin: Optional[str] = Query(
+            None,
+            title='來源',
+            description='篩選指定來源的名言',
+        ),
         editor_only: Optional[bool] = Query(
             None,
             title='是否可編輯',
@@ -55,6 +60,7 @@ async def get_sayings(
     sayings = core.get_sayings(
         db,
         token=credentials.credentials,
+        origin=origin,
         editor_only=editor_only,
     )
 

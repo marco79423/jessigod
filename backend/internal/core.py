@@ -107,12 +107,16 @@ def create_saying(db: Session, token, saying_in: schemas.SayingIn):
     return saying
 
 
-def get_sayings(db: Session, token: str, editor_only: bool):
+def get_sayings(db: Session, token: str, origin: str, editor_only: bool):
     q = db.query(models.Saying)
 
     if token and editor_only:
         editor = get_or_create_editor(db, token)
         q = q.filter_by(editor_id=editor.id)
+
+    if origin:
+        q = q.join(models.Saying.origin).filter(models.Origin.name == origin)
+        # q = q.filter(models.Origin.id == models.Saying.origin_id, models.Origin.name == origin)
 
     q = q.order_by(models.Saying.created_at.desc())
 

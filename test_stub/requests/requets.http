@@ -17,6 +17,10 @@ GET {{host}}/api/sayings
 GET {{host}}/api/sayings?pageIndex=0&editorOnly=1
 Authorization: Jessi bac
 
+### 成功取得所有名言
+GET {{host}}/api/sayings?origin=origin
+Authorization: Jessi bac
+
 ### 修改名言
 PUT {{host}}/api/sayings/2f029d50-3108-450b-8cdb-4a1a60b6542c
 Authorization: Jessi bac
