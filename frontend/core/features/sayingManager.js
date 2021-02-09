@@ -5,9 +5,9 @@ import secretKeyManager from './secretKeyManager'
 
 export class SayingManager {
 
-  async query(pageIndex, editorOnly) {
+  async query(pageIndex, editorOnly, origin) {
     const secretKey = secretKeyManager.get()
-    const resp = await axios.get(`/api/sayings?pageIndex=${pageIndex}&editorOnly=${editorOnly}`, {
+    const resp = await axios.get(`/api/sayings?pageIndex=${pageIndex}&editorOnly=${editorOnly}&origin=${origin}`, {
       headers: {
         'Authorization': `Jessi ${secretKey}`
       }

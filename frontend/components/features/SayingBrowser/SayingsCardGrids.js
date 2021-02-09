@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-export default function SayingsCardGrids({editorOnly = false}) {
+export default function SayingsCardGrids({editorOnly = false, origin = ''}) {
   const classes = useStyles()
 
   const [data, setData] = useState({
@@ -21,7 +21,7 @@ export default function SayingsCardGrids({editorOnly = false}) {
   })
 
   async function loadMoreSayings() {
-    const [moreSayings, pagination] = await sayingManager.query(data.nextPageIndex, editorOnly)
+    const [moreSayings, pagination] = await sayingManager.query(data.nextPageIndex, editorOnly, origin)
     const maxPageIndex = Math.ceil(pagination.totalSize / pagination.pageSize) - 1
 
     const hasMoreItem = data.nextPageIndex + 1 <= maxPageIndex

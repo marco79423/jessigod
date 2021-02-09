@@ -34,10 +34,18 @@ export default function SayingBrowser() {
             centered
           >
             <Tab value="全部" label="全部"/>
+            <Tab value="西卡姐" label="西卡姐"/>
+            <Tab value="Nabi 姐" label="Nabi 姐"/>
             <Tab value="我聽見的" label="我聽見的"/>
           </Tabs>
           <TabPanel value="全部">
             <SayingsCardGrids/>
+          </TabPanel>
+          <TabPanel value="西卡姐">
+            <SayingsCardGrids origin={'西卡姐'}/>
+          </TabPanel>
+          <TabPanel value="Nabi 姐">
+            <SayingsCardGrids origin={'Nabi 姐'}/>
           </TabPanel>
           <TabPanel value="我聽見的">
             <SayingsCardGrids editorOnly={true}/>
