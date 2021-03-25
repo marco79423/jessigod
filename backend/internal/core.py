@@ -2,6 +2,7 @@ import linebot
 import slack_sdk
 import telegram
 from fastapi.exceptions import HTTPException
+from linebot.exceptions import LineBotApiError
 from linebot.models import TextSendMessage
 from sqlalchemy import func
 from sqlalchemy.orm import Session
@@ -167,12 +168,14 @@ def handle_propagation_task(task_id, task_in: schemas.TaskIn, db: Session):
         return
 
     if conf.bots.line_bot:
-        line_bot_api = linebot.LineBotApi(conf.bots.line_bot.channel_access_token)
-        line_bot_api.broadcast(TextSendMessage(text=f'{saying.content} - {saying.origin.name}'))
-
-        for line_group in get_line_groups(db):
-            line_bot_api.push_message(line_group.group_id,
-                                      TextSendMessage(text=f'{saying.content} - {saying.origin.name}'))
+        try:
+            line_bot_api = linebot.LineBotApi(conf.bots.line_bot.channel_access_token)
+            line_bot_api.broadcast(TextSendMessage(text=f'{saying.content} - {saying.origin.name}'))
+            for line_group in get_line_groups(db):
+                line_bot_api.push_message(line_group.group_id,
+                                          TextSendMessage(text=f'{saying.content} - {saying.origin.name}'))
+        except LineBotApiError as e:
+            print('Line Bot 出錯：', e)
 
     if conf.bots.telegram_bot:
         bot = telegram.Bot(conf.bots.telegram_bot.token)
