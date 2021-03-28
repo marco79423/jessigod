@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import {GA4R} from 'ga-4-react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
 function App({Component, pageProps}) {
@@ -14,8 +15,9 @@ function App({Component, pageProps}) {
       </Head>
 
       <CssBaseline/>
-
-      <Component {...pageProps} />
+      <GA4R code='G-J5MYJMS7B7'>
+        <Component {...pageProps} />
+      </GA4R>
     </>
   )
 }
