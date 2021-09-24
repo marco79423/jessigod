@@ -1,3 +1,4 @@
+import pytz
 import telegram
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
@@ -34,4 +35,7 @@ def _setup_scheduler():
     scheduler.start()
 
     for schedule in conf.preacher.schedules:
-        scheduler.add_job(core.handle_schedule_task, CronTrigger.from_crontab(schedule))
+        scheduler.add_job(
+            core.handle_schedule_task,
+            CronTrigger.from_crontab(schedule, timezone=pytz.timezone(conf.server.timezone))
+        )
