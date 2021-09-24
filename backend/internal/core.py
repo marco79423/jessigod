@@ -184,8 +184,14 @@ def handle_propagation_task(task_id, task_in: schemas.TaskIn, db: Session):
             bot.send_message(chat_id=telegram_group.chat_id, text=f'{saying.content} - {saying.origin.name}')
 
     if conf.bots.slack_bot:
-        client = slack_sdk.webhook.WebhookClient(conf.bots.slack_bot.webhook_url)
-        client.send(text=f'{saying.content} - {saying.origin.name}')
+        if isinstance(conf.bots.slack_bot.webhook_url, str):
+            webhook_urls = [conf.bots.slack_bot.webhook_url]
+        else:
+            webhook_urls = list(conf.bots.slack_bot.webhook_url)
+
+        for webhook_url in webhook_urls:
+            client = slack_sdk.webhook.WebhookClient(webhook_url)
+            client.send(text=f'{saying.content} - {saying.origin.name}')
 
     print(f'任務 {task_id} 完成！')
 
