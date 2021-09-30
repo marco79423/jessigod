@@ -81,6 +81,33 @@ async def get_sayings(
     )
 
 
+@router.get('/api/random-saying', response_model=schemas.SayingOut)
+async def get_sayings(
+        origin: Optional[str] = Query(
+            None,
+            title='來源',
+            description='篩選指定來源的名言',
+        ),
+        credentials: HTTPAuthorizationCredentials = Security(security),
+        db: Session = Depends(get_db)):
+    token = credentials.credentials
+
+    saying = core.get_random_saying(
+        db,
+        token=credentials.credentials,
+        origin=origin,
+    )
+
+    return schemas.SayingOut(
+        data=schemas.Saying(
+            id=saying.id,
+            origin=saying.origin.name,
+            editable=saying.editor.token == token,
+            content=saying.content,
+        ),
+    )
+
+
 @router.post('/api/sayings', status_code=201, response_model=schemas.SayingOut)
 async def create_saying(
         saying_in: schemas.SayingIn,
