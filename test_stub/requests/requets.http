@@ -6,9 +6,15 @@ POST {{host}}/api/sayings
 Authorization: Jessi bac
 
 {
-  "origin": "origin",
-  "content": "content"
+  "origin": "西卡姐",
+  "content": "至尊敬的大能且所向披靡又太強甚至是最強而且還很愛笑的高嶺之花"
 }
+
+### 成功取得隨機名言
+GET {{host}}/api/random-saying
+
+### 成功取得隨機名言
+GET {{host}}/api/random-saying?origin=西卡姐
 
 ### 成功取得所有名言
 GET {{host}}/api/sayings
@@ -18,7 +24,16 @@ GET {{host}}/api/sayings?pageIndex=0&editorOnly=1
 Authorization: Jessi bac
 
 ### 成功取得所有名言
-GET {{host}}/api/sayings?origin=origin
+GET {{host}}/api/sayings?origin=西卡姐
+Authorization: Jessi bac
+
+### 成功取得所有名言
+GET https://jessigod.marco79423.net/api/sayings?origin=西卡姐
+Authorization: Jessi bac
+
+### 成功取得所有名言
+
+GET https://jessigod.marco79423.net/api/sayings?origin=Nabi 姐
 Authorization: Jessi bac
 
 ### 修改名言

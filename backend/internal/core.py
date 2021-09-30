@@ -123,6 +123,16 @@ def get_sayings(db: Session, token: str, origin: str, editor_only: bool):
     return q
 
 
+def get_random_saying(db: Session, origin: str):
+    q = db.query(models.Saying)
+
+    if origin:
+        q = q.join(models.Saying.origin).filter(models.Origin.name == origin)
+
+    saying = q.order_by(func.random()).first()
+    return saying
+
+
 def modify_saying(db: Session, token: str, saying_id: str, saying_in: schemas.SayingIn):
     saying = db.query(models.Saying).filter_by(id=saying_id).first()
     if not token:

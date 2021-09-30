@@ -64,7 +64,7 @@ class SayingsOut(ResponseBase):
 
 
 class SayingOut(ResponseBase):
-    data: Saying
+    data: Optional[Saying]
 
 
 # Task
