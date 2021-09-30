@@ -88,13 +88,9 @@ async def get_sayings(
             title='來源',
             description='篩選指定來源的名言',
         ),
-        credentials: HTTPAuthorizationCredentials = Security(security),
         db: Session = Depends(get_db)):
-    token = credentials.credentials
-
     saying = core.get_random_saying(
         db,
-        token=credentials.credentials,
         origin=origin,
     )
 
@@ -102,9 +98,9 @@ async def get_sayings(
         data=schemas.Saying(
             id=saying.id,
             origin=saying.origin.name,
-            editable=saying.editor.token == token,
+            editable=False,
             content=saying.content,
-        ),
+        ) if saying else None,
     )
 
 
