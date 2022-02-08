@@ -1,5 +1,7 @@
 # 傑西神教 jessigod
 
+> **註：**  專案已移至 [mysite-frontend](https://github.com/marco79423/mysite-frontend) 和 [paji](https://github.com/marco79423/paji) 專案
+
 ![jessigod](./logo.jpg)
 
 網站： https://jessigod.marco79423.net/
