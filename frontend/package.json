@@ -15,7 +15,7 @@
     "classnames": "^2.2.6",
     "ga-4-react": "^0.1.281",
     "next": "10.0.3",
-    "next-http-proxy-middleware": "^1.0.4",
+    "next-http-proxy-middleware": "^1.2.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-infinite-scroller": "^1.2.4",
