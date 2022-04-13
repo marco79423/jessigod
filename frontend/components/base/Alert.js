@@ -6,7 +6,7 @@ export default function Alert({message, open, onClose}) {
   return (
     <Snackbar
       anchorOrigin={{
-        vertical: 'top',
+        vertical: 'bottom',
         horizontal: 'center',
       }}
       open={open}
