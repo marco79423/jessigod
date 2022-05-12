@@ -32,9 +32,7 @@ export default function BaseLayout({className, children}) {
   return (
     <div className={classNames(classes.root, className)}>
       {/*Header 部分*/}
-      <header id="header">
-        <AppBar logo="/images/logo@24x24.ico" title={'西卡神教福音'}/>
-      </header>
+      <AppBar logo="/images/logo@24x24.ico" title={'西卡神教福音'}/>
 
       {/*主體部分*/}
       <main>
