@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import Image from 'next/image'
 import {Button, Card, CardActions, CardContent, CardMedia, Typography} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
 
@@ -47,12 +48,9 @@ export default function AboutGod() {
   return (
     <>
       <Card className={classes.root}>
-        <CardMedia
-          component="img"
-          className={classes.media}
-          image="/images/god.jpg"
-          title="西卡神聖像"
-        />
+        <CardMedia className={classes.media} title="西卡神聖像">
+          <Image src="/images/god.jpg" width={320} height={320} alt="西卡神聖像"/>
+        </CardMedia>
         <CardContent>
           <Typography className={classes.header} variant="subtitle1">{header}</Typography>
           <Typography className={classes.content}>{content}</Typography>
