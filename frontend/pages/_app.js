@@ -6,7 +6,7 @@ function App({Component, pageProps}) {
   return (
     <>
       <Head>
-        <title>西卡神教福音</title>
+        <title>西卡神教福音 | 記錄每一句話，傳每一教徒</title>
 
         <link rel="icon" href="/favicon.ico"/>
         <link rel="canonical" href="https://jessigod.marco79423.net/"/>
