@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import {makeStyles} from '@material-ui/core/styles'
-import {AppBar as MuiAppBar, Toolbar, Typography} from '@material-ui/core'
+import {AppBar as MuiAppBar, Toolbar} from '@material-ui/core'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -19,7 +19,7 @@ export default function AppBar({logo, title}) {
     <MuiAppBar id="header" position="relative">
       <Toolbar>
         <Image src={logo} alt='logo' width={24} height={24}/>
-        <Typography className={classes.title} variant="h1" color="inherit" noWrap>{title}</Typography>
+        <h1 className={classes.title}>{title}</h1>
       </Toolbar>
     </MuiAppBar>
   )
