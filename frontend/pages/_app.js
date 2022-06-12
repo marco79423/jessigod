@@ -33,6 +33,7 @@ function App({Component, pageProps}) {
     <>
       <Head>
         <title>西卡神教福音 | 記錄每一句話，傳每一教徒</title>
+        <meta httpEquiv="content-language" content="zh_Hant"/>
 
         <link rel="icon" href="/favicon.ico"/>
         <link rel="canonical" href="https://jessigod.marco79423.net/"/>
