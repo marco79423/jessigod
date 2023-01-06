@@ -76,3 +76,13 @@ class TaskIn(RequestBase):
 
 class TaskOut(ResponseBase):
     data: str
+
+
+# Chat
+class ChatIn(RequestBase):
+    question: str
+
+
+class ChatOut(ResponseBase):
+    question: str
+    response: str

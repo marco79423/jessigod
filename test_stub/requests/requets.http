@@ -63,3 +63,11 @@ Authorization: Jessigod token
      "sayingID": ""
    }
 }
+
+### 聊天
+
+PUT {{host}}/api/chat
+
+{
+   "question": "推薦一個領導人"
+}
