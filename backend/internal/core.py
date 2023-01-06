@@ -1,4 +1,5 @@
 import linebot
+import openai
 import slack_sdk
 import telegram
 from fastapi.exceptions import HTTPException
@@ -233,6 +234,7 @@ def handle_line_events(events):
             if event.source.type == 'group':
                 delete_line_group(db, event.source.group_id)
 
+
 def get_ai_response(question):
     openai.api_key = conf.chat.openai_token
 
@@ -240,10 +242,13 @@ def get_ai_response(question):
     response = openai.Completion.create(
         # model="text-davinci-003",
         model="text-curie-001",
-        prompt=chat_in.question,
+        prompt=question,
         temperature=0.9,
         max_tokens=1000,
     )
+
+    return response["choices"][0]["text"]
+
 
 def handle_telegram_update(json_body):
     db = database.SessionLocal()
@@ -264,4 +269,4 @@ def handle_telegram_update(json_body):
 
     if update.message.text.startswith('/chat'):
         telegram_group = get_or_create_telegram_group(db, str(update.message.chat_id))
-        bot.send_message(chat_id=telegram_group.chat_id, text='西卡神降臨，快恭迎！')
+        bot.send_message(chat_id=telegram_group.chat_id, text=get_ai_response(update.message.text[5:]))
