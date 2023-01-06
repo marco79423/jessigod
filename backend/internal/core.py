@@ -238,16 +238,19 @@ def handle_line_events(events):
 def get_ai_response(question):
     openai.api_key = conf.chat.openai_token
 
-    # https://beta.openai.com/docs/api-reference/completions/create?lang=python
-    response = openai.Completion.create(
-        model="text-davinci-003",
-        # model="text-curie-001",
-        prompt=question,
-        temperature=0.9,
-        max_tokens=1000,
-    )
+    try:
+        # https://beta.openai.com/docs/api-reference/completions/create?lang=python
+        response = openai.Completion.create(
+            model="text-davinci-003",
+            # model="text-curie-001",
+            prompt=question,
+            temperature=0.9,
+            max_tokens=1000,
+        )
 
-    return response["choices"][0]["text"]
+        return response["choices"][0]["text"]
+    except openai.error.RateLimitError:
+        return '超過使用上限了'
 
 
 def handle_telegram_update(json_body):
