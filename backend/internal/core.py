@@ -233,6 +233,17 @@ def handle_line_events(events):
             if event.source.type == 'group':
                 delete_line_group(db, event.source.group_id)
 
+def get_ai_response(question):
+    openai.api_key = conf.chat.openai_token
+
+    # https://beta.openai.com/docs/api-reference/completions/create?lang=python
+    response = openai.Completion.create(
+        # model="text-davinci-003",
+        model="text-curie-001",
+        prompt=chat_in.question,
+        temperature=0.9,
+        max_tokens=1000,
+    )
 
 def handle_telegram_update(json_body):
     db = database.SessionLocal()
@@ -250,3 +261,7 @@ def handle_telegram_update(json_body):
     if update.message.left_chat_member:
         if update.message.left_chat_member.username == conf.bots.telegram_bot.bot_username:
             delete_telegram_group(db, chat_id=str(update.message.chat_id))
+
+    if update.message.text.startswith('/chat'):
+        telegram_group = get_or_create_telegram_group(db, str(update.message.chat_id))
+        bot.send_message(chat_id=telegram_group.chat_id, text='西卡神降臨，快恭迎！')
