@@ -240,8 +240,8 @@ def get_ai_response(question):
 
     # https://beta.openai.com/docs/api-reference/completions/create?lang=python
     response = openai.Completion.create(
-        # model="text-davinci-003",
-        model="text-curie-001",
+        model="text-davinci-003",
+        # model="text-curie-001",
         prompt=question,
         temperature=0.9,
         max_tokens=1000,
