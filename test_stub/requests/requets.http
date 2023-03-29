@@ -64,6 +64,16 @@ Authorization: Jessigod token
    }
 }
 
+### 傳播名言
+POST {{host}}/api/propagation-tasks
+Authorization: Jessigod token
+
+{
+   "mode": "direct",
+   "data": "今天在創造另一個世界，所以晚了點"
+}
+
+
 ### 聊天
 
 PUT {{host}}/api/chat

@@ -171,6 +171,10 @@ def handle_propagation_task(task_id, task_in: schemas.TaskIn, db: Session):
     mode = task_in.mode if task_in.mode else 'random'
     if mode == 'random':
         saying = db.query(models.Saying).order_by(func.random()).first()
+    elif mode == 'direct':
+        saying = models.Saying(
+            content=task_in.data
+        )
     else:
         print('尚不支援別的模式...')
         return
@@ -178,13 +182,15 @@ def handle_propagation_task(task_id, task_in: schemas.TaskIn, db: Session):
     if not saying:
         return
 
+    content = f'{saying.content}' + f' - {saying.origin.name}' if saying.origin else ''
+
     if conf.bots.line_bot:
         try:
             line_bot_api = linebot.LineBotApi(conf.bots.line_bot.channel_access_token)
-            line_bot_api.broadcast(TextSendMessage(text=f'{saying.content} - {saying.origin.name}'))
+            line_bot_api.broadcast(TextSendMessage(text=content))
             for line_group in get_line_groups(db):
                 line_bot_api.push_message(line_group.group_id,
-                                          TextSendMessage(text=f'{saying.content} - {saying.origin.name}'))
+                                          TextSendMessage(text=content))
         except LineBotApiError as e:
             print('Line Bot 出錯：', e)
 
@@ -192,7 +198,7 @@ def handle_propagation_task(task_id, task_in: schemas.TaskIn, db: Session):
         bot = telegram.Bot(conf.bots.telegram_bot.token)
 
         for telegram_group in get_telegram_groups(db):
-            bot.send_message(chat_id=telegram_group.chat_id, text=f'{saying.content} - {saying.origin.name}')
+            bot.send_message(chat_id=telegram_group.chat_id, text=content)
 
     if conf.bots.slack_bot:
         if isinstance(conf.bots.slack_bot.webhook_url, str):
@@ -202,7 +208,7 @@ def handle_propagation_task(task_id, task_in: schemas.TaskIn, db: Session):
 
         for webhook_url in webhook_urls:
             client = slack_sdk.webhook.WebhookClient(webhook_url)
-            client.send(text=f'{saying.content} - {saying.origin.name}')
+            client.send(text=content)
 
     print(f'任務 {task_id} 完成！')
 
