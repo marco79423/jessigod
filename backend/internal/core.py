@@ -182,7 +182,7 @@ def handle_propagation_task(task_id, task_in: schemas.TaskIn, db: Session):
     if not saying:
         return
 
-    content = f'{saying.content}' + f' - {saying.origin.name}' if saying.origin else ''
+    content = f'{saying.content}' + (f' - {saying.origin.name}' if saying.origin else '')
 
     if conf.bots.line_bot:
         try:
