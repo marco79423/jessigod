@@ -37,5 +37,6 @@ def _setup_scheduler():
     for schedule in conf.preacher.schedules:
         scheduler.add_job(
             core.handle_schedule_task,
-            CronTrigger.from_crontab(schedule, timezone=pytz.timezone(conf.server.timezone))
+            CronTrigger.from_crontab(schedule, timezone=pytz.timezone(conf.server.timezone)),
+            misfire_grace_time=60 * 5,
         )
